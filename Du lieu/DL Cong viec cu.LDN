@@ -1,0 +1,121 @@
+﻿LDNam DLV1
+Mạch khóa số điện tử Tùng`~Đổi Pass``Nhập 3 lần``Mở cửa``PIC16f877a`~3`~`~19-3-2016 3:44:26 PM`~`~d`~`~
+Đo độ ẩm đất - Toàn`~Mạch đo độ ẩm đất``Toàn``Sơ đồ nguyên lý PIC, Giải thích chức năng từng con``Hiển thị LCD``Điều khiển máy bơm`~3`~`~19-3-2016 2:52:12 PM`~`~d`~`~
+Mạch quang báo điều khiển bằng remote PIC16F877A`~Mạch quang báo điều khiển bằng remote sony``mạch in, nguyên lý khác một chút``vovanthang193@gmail.com``nội dung chạy:``MẠCH QUANG BÁO 16X64 ĐIỀU KHIỂN BẰNG REMOTE - GVHD: NGUYỄN ``TIẾN TÙNG. SVTH: VÕ VĂN THẮNG 12127591; HOÀNG MẠNH SƠN 12028701``Đặt cọc 500k``còn lại 400k`~9`~24-10-2015`~20-10-2015 9:59:11 AM`~`~s`~s`~
+Mạch đếm sản phẩm 2 LED 7 đoạn`~TRAN VAN TIEN - 41212071``Có nguồn biến thế, có mạch chỉnh lưu + ổn áp.``450k`~10`~21-10-2015`~20-10-2015 9:49:30 AM`~20-10-2015 9:50:30 AM`~d`~hfhhfh`~
+Mạch chống trộm và mạch báo mưa`~Chống trộm: TRAN HOANG TUNG  - CNDV2-K7``Báo mưa: LE THANH TOAN - LOP: CNDV2-K7``DĐ: 0902347418`~10`~21-10-2015`~17-10-2015 7:16:26 PM`~24-10-2015 11:00:29 AM`~d`~s`~
+Điều khiển cửa vào ra khóa số`~Vẽ mạch in 150k`~10`~23-10-2015`~24-10-2015 11:43:40 AM`~29-10-2015 1:10:04 PM`~d`~s`~
+Ra mạch đồng hồ LCD`~Thu thêm 150k`~10`~23-10-2015`~24-10-2015 11:00:09 AM`~31-10-2015 1:45:42 PM`~d`~s`~
+Đèn giao thông cho thiếu nhi`~0987130111`~10`~23-10-2015`~27-10-2015 12:06:49 AM`~2-11-2015 10:23:59 AM`~d`~s`~
+Điều khiển bằng Điện thoại`~Chú triệu. dtmf, 12f675`~10`~`~2-11-2015 7:32:55 PM`~14-11-2015 12:03:28 AM`~d`~`~
+Máy biết nói cho anh việt`~Máy biết nói bao gồm 10 ngõ vào và 8 ngõ ra. làm riêng cho anh Việt`~10`~18-10-2015`~17-10-2015 7:12:21 PM`~23-11-2015 6:27:18 AM`~d`~s`~
+Mạch PWM 1 LED đơn`~Dùng Pic 16F877A biến trở thây đổi độ sáng ``nguồn 5V``Văn Công``Hữu Nhu``Đăng Long``Chiều 13/12 giao code - 17/12 giao mạch``230k``Cọc 130k`~10`~`~12-12-2015 9:01:45 AM`~24-12-2015 12:08:13 AM`~d`~`~
+Mạch điều khiển nhiệt`~Có độ ẩm giá 470k``0932850909`~10`~21-11-2015`~24-12-2015 12:27:09 AM`~24-12-2015 12:27:19 AM`~d`~`~
+3 Mạch Project 555-4017`~300k``Đã đưa linh kiện``hình tròn, số 5, hình vuông``01883081231`~10`~21-11-2015`~24-12-2015 12:11:24 AM`~31-12-2015 6:30:41 AM`~d`~`~
+5 Mạch điều khiển mô tơ DC 5V PWM 555`~70k/ mạch``Đã đặt cọc 100k``3 Ngày giao``0918344924`~10`~21-11-2015`~24-12-2015 12:10:11 AM`~2-1-2016 6:17:28 AM`~d`~`~
+3 mạch điều khiển nhiệt DS`~Thứ 7 ngày 26/12 giao ``giá 360K``0902744133`~10`~21-11-2015`~24-12-2015 12:13:38 AM`~3-3-2016 10:30:32 PM`~d`~`~
+Mạch điều khiển 2 Relay dùng remote 200m`~Anh Tuấn DL đặt 3 cái``1 lò ấp trứng 370k``10 mạch điều khiển bằng điện thoại-1 thiết bị`~10`~`~28-10-2015 3:39:53 PM`~3-3-2016 10:30:45 PM`~d`~`~
+2 Bộ điều khiển nhiệt không quạt hút`~giá 420/ bộ`~10`~`~05/10/2016 11:23:31 PM`~05/15/2016 11:09:10 PM`~d`~`~
+Mạch lịch vạn niên dùng PIC16F877A`~Hong Duong Nguyen``có âm lịch, giá 950k, đặt cọc 300k. Hiển thị trên LED 7 đoạn ``NGUYEN HONG DUONG``duonggtvt1992@gmail.com``Nguyễn Hồng Dương``Số nhà 34 ngõ Láng Trung, ``107 Nguyễn Chí Thanh, Đống Đa, Hà Nội``DD: 0985 877 106`~10`~23-10-2015`~20-10-2015 9:37:17 AM`~31-10-2015 1:47:49 PM`~d`~s`~
+Nghiên cứu làm 1000 mạch nguồn 5V`~Làm mạch nguồn 5V 1A với giá rẻ, ổn định bền lâu.`~10`~`~2-11-2015 10:33:33 AM`~19-11-2015 9:18:41 AM`~d`~`~
+Sào phơi đồ tự động`~Bo mạch``Sào ino`~1`~21-11-2015`~17-11-2015 11:42:01 PM`~`~s`~`~
+Bo điều khiển máy lạnh`~Bản rút gọn bo điều khiển máy lạnh`~7`~`~2-11-2015 10:27:54 AM`~`~s`~`~
+5 Bộ điều khiển nhiệt Thiên Phú`~In thêm Máy ấp trứng gia cầm Thiên Phú``SDT anh Kiệt`~1`~`~05/11/2016 9:02:42 PM`~`~s`~`~
+Mạch báo cháy báo khói LM35 - PIC`~440k. Đặt cọc 200k`~5`~21-11-2015`~05/24/2016 11:52:18 AM`~`~s`~`~
+Tủ điện bảo vệ bơm nước`~Tủ điện bảo vệ bơm nước ``Hiển thị điện áp và dòng điện, đặt được giá trị dòng điện``báo và ngắt khi bơm hết nước``ngắt khi quá dòng`~2`~21-11-2015`~2-11-2015 10:32:18 AM`~`~s`~`~
+Vẻ lại mạch chú triểu`~Thu nhỏ`~10`~`~08/06/2016 12:05:35 PM`~10/06/2016 1:05:12 PM`~d`~`~
+Mạch chống trộm 555 - Điều khiển hồng ngoại 9148`~Đặt cọc 400/800``tuankietgtvt@gmail.com`~10`~`~05/16/2016 10:27:42 AM`~14/06/2016 11:16:04 PM`~d`~`~
+2 Bộ đếm sản phẩm 5 LED nhỏ`~giá 750k/ bộ`~5`~`~05/10/2016 11:22:48 PM`~`~d`~`~
+Điều khiển nhiệt A lộc`~2 bộ`~5`~21-11-2015`~05/24/2016 3:01:52 PM`~`~s`~`~
+Vẽ mạch đèn giao thông`~Bảo`~5`~`~08/06/2016 12:05:56 PM`~`~s`~`~
+Xe điều khiển cho Quân`~Hiệu chỉnh xe đua cho quân`~10`~`~14/06/2016 11:18:33 PM`~24/06/2016 10:12:15 AM`~d`~`~
+Tổng hợp linh kiện, mua thêm linh kiện`~Mua thêm linh kiện`~1`~`~14/06/2016 11:20:10 PM`~24/06/2016 10:12:33 AM`~d`~`~
+2 bộ điều khiển nhiệt`~3 Chức năng`~1`~`~17/06/2016 10:08:32 AM`~`~s`~`~
+Lấy mạch của anh Tấn sửa`~Làm thêm 5 bộ điều khiển 1 thiết bị`~1`~`~14/06/2016 11:19:30 PM`~`~s`~`~
+Đồng hồ ma trận thêm hiệu ứng`~Viết thêm hiệu ứng cho đồng hồ ma trận`~1`~`~14/06/2016 11:17:51 PM`~`~s`~`~
+Mạch đo khoảng cách`~Viết giải thuật gọi tới lấy``Giửi code + giải thuật ``tranphat19t@gmail.com`~1`~`~16/07/2016 12:39:02 AM`~17/07/2016 9:27:03 AM`~d`~`~
+LDNam DLV1
+CV000007`~Viết code mạch đồng hồ`~Mạch đồng hồ PIC code 150K trả trước 100k`~10`~`~16/07/2016 12:38:23 AM`~16/07/2016 5:08:27 PM`~d`~`~
+CV000008`~Xem mạch đồng hồ điểm giờ`~Báo giá. báo nhiều tiết học. Sơ đồ qua Mail``01688897268``Đã báo giá qua Mail 250k``Đồng ý làm `~10`~17/07/2016`~16/07/2016 12:39:31 AM`~18/07/2016 11:43:54 AM`~d`~`~
+CV000012`~Đi gửi đổi hàng cho anh Nguyễn sơn Đà Lạt`~Cảm biến quang``Tại bến xe miền đông Phương Trang``Đã chuẩn bị xong`~10`~`~16/07/2016 12:47:23 AM`~18/07/2016 11:33:36 AM`~d`~`~
+CV000024`~Mạch cho anh nam`~Mạch 2 opto PC817 nhỏ xíu cho anh Nam`~10`~`~17/07/2016 8:02:35 PM`~19/07/2016 9:40:10 AM`~d`~`~
+CV000022`~Vẽ mạch cho vợ`~Hộp - mạch`~2`~`~17/07/2016 1:08:09 AM`~20/07/2016 12:51:32 AM`~d`~`~
+CV000009`~10 bộ timer`~Giao ngày mai 180k/bộ`~10`~`~16/07/2016 12:40:28 AM`~21/07/2016 7:47:53 AM`~d`~`~
+CV000006`~Ngày mai`~Ráp 10 bộ timer + 1 bộ Điều khiển điện thoại`~10`~`~16/07/2016 12:37:13 AM`~21/07/2016 8:11:24 AM`~d`~`~
+CV000027`~Gửi A Tuấn Vũng tàu`~1 Bộ DKN 370K`~10`~20/07/2016`~20/07/2016 9:03:54 PM`~21/07/2016 11:22:21 AM`~d`~`~
+CV000026`~Điều khiển nhiệt 3 trong 1 `~Gửi bảo hành ra Huế`~10`~`~18/07/2016 10:34:38 PM`~20/07/2016 10:42:24 AM`~d`~`~
+CV000019`~Chọn cảm biến phù hợp báo giá gửi bộ đếm sản phẩm 3 số`~Đồng nai, Số lượng vài chục cái bộ nếu ok. Cảm biến hồng ngoại``3 sản phẩm - Thứ 2 hoàn thành``Bùi Quốc Đạt``0973700174``Sản phẩm là Hạt 8mm-9mm``Cảm biến hồng ngoại trong ống 5mm``Khoét lỗ trên ống sắt cho cảm biến chiếu 2 đầu`~10`~17/07/2016`~16/07/2016 1:18:33 AM`~26/07/2016 7:26:30 AM`~d`~`~
+CV000018`~Gửi đồng Hồ LED cho chú Triệu`~+ 1`~4`~20/07/2016`~16/07/2016 12:54:33 AM`~26/07/2016 7:26:41 AM`~d`~`~
+CV000017`~Đóng hộp cho Đồng hồ LED`~+5 hộp`~1`~`~16/07/2016 12:54:14 AM`~26/07/2016 7:30:54 AM`~d`~`~
+CV000029`~Xem mạch cho Trọng`~+ 1`~4`~20/07/2016`~21/07/2016 8:16:23 AM`~10/08/2016 4:26:24 PM`~d`~`~
+CV000032`~Xem mạch cho Trọng`~Bảng điều khiển`~10`~20-11-2015`~26/07/2016 7:35:33 AM`~10/08/2016 4:26:13 PM`~d`~`~
+CV000013`~Sửa chương trình Đồng hồ ma trận `~Nhiều màu, gửi đi Nha Trang`~1`~`~16/07/2016 12:51:03 AM`~10/08/2016 4:27:03 PM`~d`~`~
+CV000016`~Đóng hộp làm thêm mỏ hàn nhiệt`~Cho Tâm + 1``Cho Vợ + 1`~1`~`~16/07/2016 12:53:44 AM`~10/08/2016 4:27:37 PM`~d`~`~
+CV000031`~Chỉnh lại chương trình cảm biến nhiệt cho anh Kiệt`~DS18B20``2 bộ định thời``Ngõ ra 12 V``DKN V3.1`~1`~`~26/07/2016 7:28:38 AM`~10/08/2016 4:30:00 PM`~d`~`~
+CV000033`~Bộ đếm sản phẩm 3 LED không cảm biến`~Giá 320k. Bình dương xuống lấy``0977507760`~2`~20-11-2015`~31/07/2016 4:35:04 PM`~10/08/2016 4:30:19 PM`~d`~`~
+CV000039`~Bộ đếm sản phẩm`~Bộ đếm sản phẩm 5 LED 3x4 1,2 triệu``đặt cọc 300000`~10`~`~19/08/2016 11:33:09 AM`~23/08/2016 10:26:38 AM`~d`~`~
+CV000020`~Thiết kế mạch báo cháy cho Bình Hải Phòng`~Mạch thì trong chiều nay hoặc sáng mai mình sẽ gửi vào cho Nam xử lý đấy! À ``đợt trước mình có hàn thêm 3 nút nhấn song song, với làm 3 công tắc On/Off ``cho 3 cái bơm nữa đấy Nam nhé. ``Trong lúc chờ mạch mình gửi vào thì Nam tiến hành edit lại cái mạch trong ``proteus, cả code phần mềm nữa nhé! Để mạch vào đến nơi thì Nam làm luôn ``cho mình nha! Làm theo ý tưởng yêu cầu của mình nói ấy nhé! chuyển về dùng ``1 bơm công suất lớn hơn là 1, lập trình điều khiển ( bằng cách nhấn nút chẳng ``hạn)  tự động bơm này là 2! Có gì Nam đọc lại trong mail trước mình gửi nhé! ``với thay LCD khác cho nó to to ra xíu là thứ 3! thứ 4 là lắp thêm modul tự động ``nt đeens sđt của ng trực!``Nam cố gắng để khoảng tầm giữa tuần sau thứ 4,5 là xong cho mình nhé!?``Về khoản dự trù kinh phí thì Nam cũng cho mình biết để mình chuyển cho Nam ``làm nha!``Thân và cảm ơn Nam rất nhiều!`~10`~`~16/07/2016 1:02:09 AM`~02/09/2016 7:35:18 PM`~d`~`~
+CV000021`~BK Điều khiển lạnh 25-28 độ`~Điều khiển nhiệt nước 100L`~1`~`~17/07/2016 1:07:33 AM`~`~s`~`~
+CV000042`~Điều khiển động cơ`~Sửa code cho Sơn Giao`~10`~`~06/09/2016 6:49:44 PM`~06/09/2016 11:01:37 PM`~d`~`~
+CV000043`~Mạch cảnh báo sinh viên`~Mail`~1`~`~06/09/2016 11:01:28 PM`~`~s`~`~
+CV000047`~Mạch cảnh báo sinh viên`~Làm`~1`~`~07/09/2016 6:22:53 PM`~`~s`~`~
+CV000045`~Bộ hẹn giờ AVR X 3`~Đặt cọc 500k``Anh Phát`~10`~20-11-2015`~07/09/2016 6:21:24 PM`~13/09/2016 7:51:48 AM`~d`~`~
+CV000048`~Bộ điều khiển nhiệt 5 trong 1`~Một bộ hoàn chỉnh`~1`~`~12/09/2016 10:23:08 AM`~14/09/2016 11:42:01 AM`~d`~`~
+CV000052`~Bộ điều khiển lò sấy`~Anh đông``800W`~10`~`~18/09/2016 10:26:38 AM`~19/09/2016 7:20:53 PM`~d`~`~
+CV000051`~Bộ đếm sản phẩm 5 số - cảm biến từ`~800k`~1`~`~12/09/2016 12:55:13 PM`~19/09/2016 7:21:12 PM`~d`~`~
+CV000050`~Bộ đếm sản phẩm hồng ngoại`~3 số`~1`~`~12/09/2016 10:51:42 AM`~19/09/2016 7:21:30 PM`~d`~`~
+CV000049`~Bộ đếm sản phẩm 4 số đặt được giá trị`~Làm 3 độ`~10`~`~12/09/2016 10:25:50 AM`~21/09/2016 7:27:38 PM`~d`~`~
+CV000041`~Bộ đếm 5 số nhỏ `~Cảm biến từ vuông`~10`~`~06/09/2016 6:49:23 PM`~26/09/2016 9:33:19 AM`~d`~`~
+CV000035`~Gửi A Trọng 10 terminal 3 + 10 terminal 2`~Số tiền 40k``Phí vận chuyển 20k``Đo dòng 350k``Bộ đếm 800k`~5`~20-11-2015`~07/08/2016 3:56:43 PM`~26/09/2016 9:33:42 AM`~d`~`~
+CV000034`~Một bộ báo động điện thoại`~A Tuấn``50 bộ điều khiển 1 thiết bị`~5`~20-11-2015`~07/08/2016 3:54:41 PM`~26/09/2016 9:34:01 AM`~d`~`~
+CV000010`~bộ điều khiển 7 thiết bị`~400k`~1`~`~16/07/2016 12:40:49 AM`~`~s`~`~
+CV000056`~Bộ đếm sản phẩm 2 LED`~350k - 50k``nguyễn ngọc hải 0968383102. Cổng trường đh sư phạm kỹ thuật hưng yên- ``dân tiến khoái châu hưng yên`~10`~`~25/09/2016 5:04:15 AM`~27/09/2016 8:48:18 AM`~d`~`~
+CV000057`~Làm mạch chống trộm cảm biến rung`~A Tín đặt`~10`~`~25/09/2016 3:47:08 PM`~02/10/2016 3:35:55 PM`~d`~`~
+CV000060`~Bộ đếm thời gian 3 số`~Anh ozon ``3 bộ``1000k/bộ`~10`~`~28/09/2016 4:25:16 PM`~03/10/2016 8:14:07 AM`~d`~`~
+CV000044`~Thăm nhà anh zôn + nghịch máy hàn`~Nghịch máy hàn`~5`~20-11-2015`~07/09/2016 6:20:59 PM`~`~s`~`~
+CV000061`~3 bộ điều khiển nhiệt`~Anh kiệt``Ngõ ra 12V cho HÚT`~10`~`~29/09/2016 7:41:44 PM`~04/10/2016 7:06:41 AM`~d`~`~
+CV000059`~Bộ đếm sản phẩm 5 số 65x86`~Không cảm biến``giá 950k/bộ``2 bộ``đã đặt cọc 200k`~1`~`~28/09/2016 4:24:37 PM`~04/10/2016 7:06:55 AM`~d`~`~
+CV000062`~Bộ đếm vận tốc 3 số`~Anh Hà``5 bộ ``Đã thanh toán`~10`~`~30/09/2016 5:41:47 PM`~05/10/2016 10:28:58 AM`~d`~`~
+CV000063`~Bộ đếm sản phẩm 2 sô`~0-10``nếu đến 10 bật LED báo 30s đừng. sau 30 giây thì về 0 đếm lại từ đầu``Sinh viên đưa IC``Giá 250k. Cọc 150k`~10`~`~02/10/2016 3:37:39 PM`~10/10/2016 7:35:18 AM`~d`~`~
+CV000054`~3 Bộ đếm sản phẩm 3 số LED lớn`~Mail``Và cảm biến màu`~10`~`~24/09/2016 1:43:38 PM`~10/10/2016 9:56:43 AM`~d`~`~
+CV000038`~Gửi mạch DKN`~Gửi mạch 200k cho anh ẩn``Chỉ cần đo nhiệt độ`~1`~`~19/08/2016 7:56:04 AM`~`~s`~`~
+CV000040`~Mở lớp dạy lập trình PIC CCS`~Soạn giáo trình`~1`~`~23/08/2016 10:00:54 PM`~`~s`~`~
+CV000066`~Mạch điều khiển đèn giao thông`~Hà nội đặt 3 bộ Thụy``Không nguồn``400k/bộ`~10`~`~12/10/2016 6:56:57 AM`~19/10/2016 11:19:42 AM`~d`~`~
+CV000068`~Bộ đếm sản phẩm 5 số`~mới`~10`~`~19/10/2016 11:20:54 AM`~26/10/2016 7:57:51 PM`~d`~`~
+CV000074`~DKN anh lộc`~26 giao`~10`~20-11-2015`~25/10/2016 8:40:07 PM`~26/10/2016 7:58:31 PM`~d`~`~
+CV000067`~Mạch điều khiển đèn giao thông`~Đồ án ``Trần Quốc Hoàng``0913446609``600k/bộ cọc 300k`~1`~`~19/10/2016 11:19:30 AM`~26/10/2016 8:02:39 PM`~d`~`~
+CV000053`~Bộ điều khiển động cơ báo cháy`~Động cơ giam tốc DC có giới hạn trên đưới``Cảm biến nhiệt``Gái 800k``Anh cường Lâm đồng`~1`~`~24/09/2016 1:43:10 PM`~26/10/2016 8:04:44 PM`~d`~`~
+CV000070`~Mạch cho Hoài`~Thứ 2 giao``450k`~1`~`~23/10/2016 4:25:06 PM`~`~s`~`~
+CV000071`~Xem mạch mô hình băng tải`~Chỉ mạch đếm 580k``Đặt cọc 300k`~1`~`~23/10/2016 4:25:29 PM`~`~s`~`~
+CV000030`~Sửa các mạch Laze cho Đạo`~+ 1`~4`~20/07/2016`~21/07/2016 8:22:18 AM`~`~s`~`~
+CV000037`~Đề tài của Quân`~Trên cùng là bể cá. Hút nước từ bể ra để tưới cây bằng định thời cố định``- Lượng nước hút ra phải được bù trở lại``- Có đèn định thời. ``- Tất cả trong 1``- Dùng PIN mặt trời``Cọc 50k.`~1`~`~18/08/2016 10:15:31 AM`~`~s`~`~
+CV000065`~Bộ đếm thời gian 3 số nhỏ`~Anh Nguyễn trọng Doanh đồng Nai đặt``300k/1 bộ`~5`~20-11-2015`~05/10/2016 1:37:02 PM`~`~s`~`~
+CV000084`~Thiết kế bo cho thành`~OK`~10`~20-11-2015`~30/10/2016 11:55:34 PM`~`~s`~`~
+CV000076`~Mạch điều khiển tốc độ động cơ encoder`~200k đã nhận. 01696876795 pic`~10`~20-11-2015`~26/10/2016 8:01:47 PM`~`~s`~`~
+CV000088`~Bộ đếm sản phẩm `~3 cảm biến 3 số nhỏ mail`~1`~`~06/11/2016 11:00:04 AM`~`~s`~`~
+CV000087`~Mạch dimmer PIC`~150/300``chưa tính biến thế`~10`~20-11-2015`~04/11/2016 3:57:29 PM`~`~d`~`~
+CV000091`~Bộ đếm sản phẩm 65/86 x 5 cho thắng `~980k/bộ chưa cảm biến`~10`~20-11-2015`~10/11/2016 6:51:46 PM`~`~s`~`~
+CV000072`~Lịch vạn niên`~3 bộ dài 45cm``3 bộ dài 55cm``thứ 4`~1`~`~23/10/2016 4:26:42 PM`~`~s`~`~
+CV000099`~Remote ra 5V 4 nút Hoài`~Theo f`~10`~`~28/11/2016 1:18:05 AM`~29/11/2016 8:08:56 AM`~d`~`~
+CV000098`~Cảm biến mực nước`~Anh lộc`~1`~`~26/11/2016 10:37:29 AM`~29/11/2016 8:09:06 AM`~d`~`~
+CV000085`~Bộ đếm sản phẩm 3 số nhỏ`~sản xuất thêm 5 bộ`~10`~20-11-2015`~02/11/2016 9:28:49 PM`~29/11/2016 8:09:26 AM`~d`~`~
+CV000079`~Bộ do dòng cho 2 sinh viên`~Đặt cọc 400/900`~10`~20-11-2015`~30/10/2016 11:16:08 PM`~`~s`~`~
+CV000064`~Ngày 11/10 xem máy phay cho anh ozon`~Ngày 11/10 xem máy phay cho anh ozon`~5`~20-11-2015`~03/10/2016 8:17:18 AM`~`~s`~`~
+CV000103`~Bộ đếm tốc độ cao 3 số`~Thứ 2 Gửi đi`~1`~`~04/12/2016 11:41:27 AM`~`~s`~`~
+CV000104`~Cảm biến khói `~Anh Danh đặt`~10`~`~05/12/2016 8:06:36 PM`~09/12/2016 8:35:07 AM`~d`~`~
+CV000100`~Bộ đếm sản phẩm 4 số 9X12`~Mail`~1`~`~28/11/2016 1:18:38 AM`~09/12/2016 8:35:31 AM`~d`~`~
+CV000097`~Bộ đếm sản phẩm (đếm lần nhấn nút cảm ứng)`~Anh Cá mập``Nhấn đèn chớp tắt nhanh. chớp chậm sau 3 S`~1`~`~25-11-2016 7:06:27 PM`~09/12/2016 8:36:08 AM`~d`~`~
+CV000111`~Làm chắn Đuôi xe`~Cho mình :)`~10`~`~10/12/2016 8:23:25 PM`~10/12/2016 11:10:18 PM`~d`~`~
+CV000089`~Làm bộ đề máy tự động cho anh Tuân`~Đề 5 lần liên tiếp``tính hiệu vào relay``tín hiệu ra relay;`~1`~`~08/11/2016 11:56:41 PM`~`~s`~`~
+CV000094`~Bộ đếm vận tốc đề máy phát`~800k`~10`~20-11-2015`~12/11/2016 12:45:30 PM`~14/12/2016 8:52:42 AM`~d`~`~
+CV000095`~Chuyển đổi nguồn điện lưới`~A tuấn 200k`~1`~`~14/11/2016 8:11:54 AM`~09-12-2016 10:14:46 AM`~d`~`~
+CV000101`~Bộ xạc Pin mặt trời `~Anh Nam - Thắp dèn LED 5V`~1`~`~28/11/2016 7:27:17 AM`~`~s`~`~
+CV000083`~Gửi bộ điều khiển cho anh nam`~OK`~10`~20-11-2015`~30/10/2016 11:21:52 PM`~`~s`~`~
+CV000082`~Sửa hàng cho anh tuấn`~OK`~10`~20-11-2015`~30/10/2016 11:21:39 PM`~`~s`~`~
+CV000081`~Hoàn chỉnh 6 Lịch vạn niên`~OK`~10`~20-11-2015`~30/10/2016 11:16:55 PM`~`~s`~`~
+CV000058`~Bộ báo cháy qua điện thoại`~A Tuấn Đặt``700k/ bộ đã thanh toán`~5`~20-11-2015`~26/09/2016 9:35:02 AM`~`~d`~`~
+CV000055`~Bộ đếm xung có báo đèn và ngắt`~Bạn thầy trô vi`~1`~`~24/09/2016 1:44:08 PM`~`~s`~`~
+CV000112`~Bộ đếm sản phẩm 3 số`~Chị Thanh`~1`~`~14/12/2016 8:56:49 AM`~`~s`~`~
+CV000110`~Anh Kiệt`~4 DKN Lớn Cảm biến nhỏ`~1`~`~10/12/2016 8:21:44 PM`~`~s`~`~
+CV000109`~Anh LỘC`~2 DKN lơn,2 Cảm biến mực nước`~1`~`~10/12/2016 8:20:44 PM`~`~s`~`~
+CV000113`~Quang báo LED ma trận đơn gian`~PIC16`~10`~20-11-2015`~17/12/2016 12:54:07 AM`~`~s`~`~

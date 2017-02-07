@@ -1,0 +1,1005 @@
+﻿unit f_quan_ly_cuoc_song_f;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Db, ComCtrls, StdCtrls, Buttons, ExtCtrls,
+  ImgList, JvTFManager, JvTFDays, JvTFGlance, JvTFGlanceTextViewer, JvTFMonths, JvTFWeeks,
+	JvComponent, JvExControls, JvComponentBase, System.ImageList,LDNam_sys,
+	LDNam_xu_ly_du_lieu,LDNam_sys_thoi_gian,f_dl_f, JvTFAlarm, Vcl.MPlayer,
+	DateUtils,System.UITypes;
+
+type
+  Tf_quan_ly_cuoc_song = class(TForm)
+    utfScheduleManager1: TJvTFScheduleManager;
+		StateImageList: TImageList;
+    JvTFDaysPrinter1: TJvTFDaysPrinter;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    TabSheet3: TTabSheet;
+    JvTFDays1: TJvTFDays;
+    JvTFWeeks1: TJvTFWeeks;
+    JvTFMonths1: TJvTFMonths;
+    GlanceTextViewer1: TJvTFGlanceTextViewer;
+    GlanceTextViewer2: TJvTFGlanceTextViewer;
+    Panel1: TPanel;
+    ResourceCombo: TComboBox;
+    PrevDateButton: TBitBtn;
+    NextDateButton: TBitBtn;
+    NewApptButton: TBitBtn;
+    EditApptButton: TBitBtn;
+    DeleteApptButton: TBitBtn;
+    ViewSchedsButton: TBitBtn;
+    HideSchedButton: TBitBtn;
+    ShareButton: TBitBtn;
+    TimeIncCombo: TComboBox;
+    GotoDatePicker: TDateTimePicker;
+    ModeCombo: TComboBox;
+    DaysCombo: TComboBox;
+    PrintButton: TBitBtn;
+    sttb1: TStatusBar;
+    tm1: TTimer;
+		mp_1: TMediaPlayer;
+    tm_bao: TTimer;
+    Button1: TButton;
+    l2: TLabel;
+    Timer1: TTimer;
+    Timer2: TTimer;
+    procedure utfScheduleManager1PostAppt(Sender: TObject; Appt: TJvTFAppt);
+    procedure utfScheduleManager1DeleteAppt(Sender: TObject; Appt: TJvTFAppt);
+    procedure utfScheduleManager1RefreshAppt(Sender: TObject; Appt: TJvTFAppt);
+    procedure ModeComboChange(Sender: TObject);
+    procedure ViewSchedsButtonClick(Sender: TObject);
+    procedure HideSchedButtonClick(Sender: TObject);
+    procedure ResourceComboChange(Sender: TObject);
+    procedure DaysComboChange(Sender: TObject);
+    procedure ShareButtonClick(Sender: TObject);
+    procedure PrevDateButtonClick(Sender: TObject);
+    procedure NextDateButtonClick(Sender: TObject);
+    procedure GotoDatePickerChange(Sender: TObject);
+    procedure GotoDatePickerUserInput(Sender: TObject;
+      const UserString: String; var DateAndTime: TDateTime;
+      var AllowChange: Boolean);
+    procedure TimeIncComboChange(Sender: TObject);
+    procedure NewApptButtonClick(Sender: TObject);
+    procedure EditApptButtonClick(Sender: TObject);
+    procedure DeleteApptButtonClick(Sender: TObject);
+    procedure JvTFDays1DateChanging(Sender: TObject; var NewDate: TDate);
+    procedure JvTFDays1DateChanged(Sender: TObject);
+    procedure JvTFDays1GranularityChanged(Sender: TObject);
+    procedure JvTFDays1DblClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure PrintButtonClick(Sender: TObject);
+    procedure JvTFDaysPrinter1ApptProgress(Sender: TObject; Current,
+      Total: Integer);
+    procedure JvTFDaysPrinter1AssembleProgress(Sender: TObject; Current,
+      Total: Integer);
+    procedure JvTFDaysPrinter1PrintProgress(Sender: TObject; Current,
+      Total: Integer);
+		procedure utfScheduleManager1LoadBatch(Sender: TObject; BatchName: String;
+			BatchStartDate, BatchEndDate: TDate);
+    procedure FormCreate(Sender: TObject);
+		procedure tm1Timer(Sender: TObject);
+		procedure luu_thong_so;
+		procedure doc_thong_so;
+		procedure mo_am(ten_am:string);
+		procedure cap_nhat_bao;
+		procedure tm_baoTimer(Sender: TObject);
+	procedure hien_thi_thong_diep(thong_diep:string);
+		procedure FormClose(Sender: TObject; var Action: TCloseAction);
+		procedure chuyen_ngay;
+		procedure Button1Click(Sender: TObject);
+		procedure nhap_dl;
+    procedure Timer1Timer(Sender: TObject);
+
+	private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+	f_quan_ly_cuoc_song: Tf_quan_ly_cuoc_song;
+	id_bao:string;
+	ma,
+	ma_toi_nhom:string;
+	ngay_bd:Tdate;
+	tg_bd:Ttime;
+	ngay_kt:Tdate;
+	tg_kt:Ttime;
+	noi_dung,
+	noi_dung_bao,
+	
+	lap_lai:string;
+	lap:string;
+	bat_bao:boolean;
+	tg_bao_truoc:integer;
+	
+	
+	ma_nhom,
+	ten_nhom:string;
+	
+	sn:LongWord;
+	chon:byte;
+
+	tg_dem_nguoc:integer;
+	const
+	chon_huy=0;
+	chon_sua=1;
+	chon_them=2;
+
+
+	
+
+implementation
+
+Uses VisibleResourcesUnit, ShareUnit, f_chinh_sua_cuoc_hen_f, PrintProgressUnit,
+	f_thong_diep_f;
+
+{$R *.DFM}
+procedure Tf_quan_ly_cuoc_song.chuyen_ngay;
+var thu:byte;
+	ngay_hn:TDate;
+	ngay_kt:Tdate;
+begin
+	cap_nhat_bao;
+	utfScheduleManager1.dbDeleteAllAppt;
+	//utfScheduleManager1.ProcessBatches;
+
+	thu:=thu_so(now);
+	ngay_hn:=now;
+	ngay_kt:=ngay_hn+(7-thu);
+	ngay_hn:=ngay_hn-(thu-1);
+	//tg1:=StrTodateTime(DateToStr(ngay_hn)+' '+'12:59:59 PM');
+	//s:=SecondOfTheDay(tg1);
+	//s2:=SecondOfTheDay(now);
+	//s3:=s2-s;
+
+	utfScheduleManager1LoadBatch(self,ResourceCombo.Text,ngay_hn,ngay_kt);
+	JvTFDays1.Template.LinearName := ResourceCombo.Text;
+	JvTFWeeks1.SchedNames.Clear;
+	jvTFWeeks1.SchedNames.Add(ResourceCombo.Text);
+	JvTFWeeks1.Refresh;
+	JvTFMonths1.SchedNames.Clear;
+	JvTFMonths1.SchedNames.Add(ResourceCombo.Text);
+	JvTFMonths1.Refresh; 
+	cap_nhat_bao;
+	//utfScheduleManager1.Create(nil);
+end;
+//======================================== 
+procedure tach_dl(dong_dl:string);
+begin
+	if dong_dl<>'' then
+	begin	
+		//dong_dl:=f_dl.lb_dl_cuoc_song.items[vt];
+		ma:=tach_cot(dong_dl);
+		ma_toi_nhom:=tach_cot(dong_dl);
+		ngay_bd:=StrToDate(tach_cot(dong_dl));
+		tg_bd:=StrToTime(tach_cot(dong_dl));
+		ngay_kt:=StrToDate(tach_cot(dong_dl));
+		tg_kt:= StrToTime(tach_cot(dong_dl));
+		noi_dung:=tach_cot(dong_dl);
+		bat_bao:=tach_cot_b(dong_dl);
+		tg_bao_truoc:=StrToInt(tach_cot(dong_dl));
+		lap_lai:=dong_dl;
+		lap:=tach_cot(dong_dl)
+	end;
+end;
+//======================================== 
+procedure Tf_quan_ly_cuoc_song.nhap_dl;
+var
+	dong:string;
+	procedure them_c(ts:string);
+	begin
+		dong:=dong+ts+phan_cot;
+	end;
+	procedure them_s(s:integer);
+	begin
+		them_c(IntToStr(s));
+	end;
+	procedure them_b(b:boolean);
+	Var
+		b_c: string;
+	begin
+		b_c:='s';
+		if b=dung then
+			b_c:='d';
+		them_c(b_c);
+	end;
+	procedure them_d(d:TDate);
+	begin
+		them_c(FormatDateTime(dinh_dang_ntn,d));
+	end;
+	procedure them_t(t:TTime);
+	begin
+		them_c(FormatDateTime(dinh_dang_gpg,t));
+	end;
+begin
+	dong:='';
+	them_c(ma);
+	them_c(ma_toi_nhom);
+	them_d(ngay_bd);
+	them_t(tg_bd);
+	them_d(ngay_kt);
+	them_t(tg_kt);
+	them_c(noi_dung);
+	them_b(bat_bao);
+	them_s(tg_bao_truoc);
+	dong:=dong+lap_lai;
+	if lb_sua(f_dl.lb_dl_cuoc_song,dong)=sai then
+	begin
+		f_dl.lb_dl_cuoc_song.Items.Add(dong);	
+	end;
+	luu_thong_so;
+end;
+//======================================== 
+procedure Tf_quan_ly_cuoc_song.doc_thong_so;
+var 
+	dong:string;
+	a: array [0..50] of string;
+	j:integer;
+	vi_tri_cuoi:integer;
+	i:integer;
+	so_dl:integer;
+	function tach_b(c:string) :boolean;
+	begin
+		Result:=sai;
+		if c='d' then
+			Result:=dung;
+	end;
+	function tach_s(c:string) :integer;
+	begin
+		Result:=0;
+		if c<>'' then
+			Result:=StrToInt(c);
+	end;
+	function tach_s_md(c:string;md:integer) :integer;
+	begin
+		Result:=md;
+		if c<>'' then
+			Result:=StrToInt(c);
+	end;
+	function tach_c_md(c:string;md:string) :string;
+	begin
+		Result:=md;
+		if c<>'' then
+			Result:=c;
+	end;
+begin
+	dong:=f_dl.lb_dl_cuoc_song.Items[0];
+	so_dl:=dem_chuoi_trong_chuoi(phan_cot,dong)-1 ;
+	for j := 0 to so_dl do
+	begin
+		vi_tri_cuoi := AnsiPos(phan_cot, dong);
+		a[j]:=copy(dong, 1, vi_tri_cuoi-1);
+		dong:=copy(dong,vi_tri_cuoi+2,Length(dong));
+	end;
+	f_quan_ly_cuoc_song.Left:=tach_s(a[1]);
+	f_quan_ly_cuoc_song.top:=tach_s(a[2]);
+	//ma_ghi_nho:= tach_c_md(a[3],'GN000000');
+	for i := 0 to so_dl-4 do
+	begin
+		//lv_thien_su.Columns[i].Width:=tach_s_md(a[i+4],50);
+	end;
+end;
+//======================================== 
+procedure Tf_quan_ly_cuoc_song.luu_thong_so;
+var
+	dong:string;
+	procedure them_c(ts:string);
+	begin
+		dong:=dong+ts+phan_cot;
+	end;
+	procedure them_s(s:integer);
+	begin
+		them_c(IntToStr(s));
+	end;
+	procedure them_b(b:boolean);
+	Var
+		b_c: string;
+	begin
+		b_c:='s';
+		if b=dung then
+			b_c:='d';
+		them_c(b_c);
+	end;
+begin
+	dong:=phien_ban_du_lieu+phan_cot;
+	them_s(f_quan_ly_cuoc_song.Left); // 1
+	them_s(f_quan_ly_cuoc_song.Top); // 2
+	//them_c(ma_ghi_nho); // 3
+	//so_dl:=dem_chuoi_trong_chuoi(phan_cot,f_dl.lb_dl_cuoc_song.Items[0])-1 ;
+	//for i := 0 to so_dl-4 do
+	//begin
+		//them_s(lv_thien_su.Columns[i].Width);
+	//end;
+	f_dl.lb_dl_cuoc_song.Items[0]:=dong;
+	f_dl.lb_dl_cuoc_song.Items.SaveToFile
+				(ten_f_dlcs3, TEncoding.UTF8);
+	//them_c('1111');
+end;
+//======================================== 
+procedure Tf_quan_ly_cuoc_song.mo_am(ten_am:string);
+begin
+	//if mp_1.Position=0 then
+	with mp_1 do
+	begin
+		FileName:=duong_dan_goc+'\Du lieu\Nhac\Am thanh\'+ten_am;
+		Open;
+		Play;
+		//che_do_am_thanh_:=am_thanh_bat;
+		//tg_am_thanh_:=2;
+	end;
+end;
+//======================================== 
+procedure Tf_quan_ly_cuoc_song.utfScheduleManager1PostAppt(Sender: TObject;
+	Appt: TJvTFAppt);
+begin
+	if (chon=chon_them)or(chon=chon_sua) then
+	begin
+		chon:=chon_huy;
+		ma:=Appt.ID;
+		ma_toi_nhom:=lb_tro(f_dl.lb_dl_nhom,Appt.Schedules[0]);
+		ma_toi_nhom:=tach_cot(ma_toi_nhom);
+		ngay_bd:=Appt.StartDate;
+		tg_bd:=Appt.StartTime;
+		ngay_kt:=Appt.EndDate;
+		tg_kt:=Appt.EndTime;
+		noi_dung:=(Appt.Description);
+		bat_bao:=(Appt.AlarmEnabled);
+		tg_bao_truoc:=(Appt.AlarmAdvance);
+		nhap_dl;
+		cap_nhat_bao;
+	end;
+end;
+//======================================== 
+procedure Tf_quan_ly_cuoc_song.utfScheduleManager1DeleteAppt(Sender: TObject;
+	Appt: TJvTFAppt);
+begin
+	lb_xoa(f_dl.lb_dl_cuoc_song,Appt.ID);
+	luu_thong_so;
+end;
+
+
+procedure Tf_quan_ly_cuoc_song.utfScheduleManager1RefreshAppt(Sender: TObject;
+  Appt: TJvTFAppt);
+var
+dong5:string;
+begin
+	tach_dl(lb_tro(f_dl.lb_dl_cuoc_song,Appt.ID));
+	Appt.SetStartEnd(ngay_bd,tg_bd,ngay_kt,tg_kt);
+	Appt.Description:=noi_dung;
+	Appt.AlarmEnabled := bat_bao;
+	Appt.AlarmAdvance := tg_bao_truoc;
+	dong5:=lb_tro(f_dl.lb_dl_nhom, ma_toi_nhom);
+	tach_cot(dong5);
+	Appt.AddSchedule(tach_cot(dong5));
+end;
+
+
+procedure Tf_quan_ly_cuoc_song.ModeComboChange(Sender: TObject);
+begin
+  If ModeCombo.ItemIndex = 0 Then
+    // Single mode
+    Begin
+      // display the appropriate tool bar controls
+      ViewSchedsButton.Visible := False;
+      HideSchedButton.Visible := False;
+      ShareButton.Visible := False;
+      ResourceCombo.Visible := True;
+      DaysCombo.Visible := True;
+      // synchronize the date
+      JvTFDays1.Template.LinearStartDate := GotoDatePicker.Date;
+      // "activate" the Linear template
+			JvTFDays1.Template.ActiveTemplate := agtLinear;
+      // set the column grouping
+      JvTFDays1.Grouping := grResource;
+    End
+  Else
+    // Group mode
+    Begin
+      // display the appropriate tool bar controls
+      ViewSchedsButton.Visible := True;
+      HideSchedButton.Visible := True;
+      ShareButton.Visible := True;
+      ResourceCombo.Visible := False;
+      DaysCombo.Visible := False;
+      // synchronize the date
+      JvTFDays1.Template.CompDate := GotoDatePicker.Date;
+      // "activate" the Comparative template
+      JvTFDays1.Template.ActiveTemplate := agtComparative;
+      // set the column grouping
+      JvTFDays1.Grouping := grDate;
+    End;
+end;
+
+procedure Tf_quan_ly_cuoc_song.ViewSchedsButtonClick(Sender: TObject);
+begin
+  VisibleResources.ShowModal;
+end;
+
+procedure Tf_quan_ly_cuoc_song.HideSchedButtonClick(Sender: TObject);
+var
+  I,
+  NameIndex : Integer;
+  NameList : TStringList;
+begin
+  NameList := TStringList.Create;
+
+  Try
+    With JvTFDays1 do
+      Begin
+        If ValidSelection Then
+          Begin
+						For I := SelStart.X to SelEnd.X do
+              NameList.Add(Cols[I].SchedName);
+
+						For I := 0 to NameList.Count - 1 do
+              Begin
+                NameIndex := Template.CompNames.IndexOf(NameList[I]);
+                If NameIndex > -1 Then
+                  Template.CompNames.Delete(NameIndex);
+              End;
+          End
+        Else
+					MessageDlg('Please select a schedule to hide.', mtInformation, [mbOK], 0);
+      End;
+  Finally
+    NameList.Free;
+  End;
+end;
+
+procedure Tf_quan_ly_cuoc_song.ResourceComboChange(Sender: TObject);
+begin
+  JvTFDays1.Template.LinearName := ResourceCombo.Text;
+  JvTFWeeks1.SchedNames.Clear;
+  JvTFWeeks1.SchedNames.Add(ResourceCombo.Text);
+  JvTFWeeks1.Refresh;
+  JvTFMonths1.SchedNames.Clear;
+  JvTFMonths1.SchedNames.Add(ResourceCombo.Text);
+  JvTFMonths1.Refresh;
+end;
+
+procedure Tf_quan_ly_cuoc_song.DaysComboChange(Sender: TObject);
+begin
+  Case DaysCombo.ItemIndex of
+    0 : JvTFDays1.Template.LinearDayCount := 31;
+    1 : JvTFDays1.Template.LinearDayCount := 14;
+    2 : JvTFDays1.Template.LinearDayCount := 7;
+    3 : JvTFDays1.Template.LinearDayCount := 5;
+    4 : JvTFDays1.Template.LinearDayCount := 3;
+    5 : JvTFDays1.Template.LinearDayCount := 2;
+    6 : JvTFDays1.Template.LinearDayCount := 1;
+  End;
+end;
+
+procedure Tf_quan_ly_cuoc_song.ShareButtonClick(Sender: TObject);
+begin
+  If JvTFDays1.SelAppt <> nil Then
+    Share.ShowModal
+  Else
+    MessageDlg('Chọn một cuộc hẹn.', mtInformation, [mbOK], 0);
+end;
+
+procedure Tf_quan_ly_cuoc_song.PrevDateButtonClick(Sender: TObject);
+begin
+  JvTFDays1.PrevDate;
+end;
+
+procedure Tf_quan_ly_cuoc_song.NextDateButtonClick(Sender: TObject);
+begin
+  JvTFDays1.NextDate;
+end;
+
+procedure Tf_quan_ly_cuoc_song.GotoDatePickerChange(Sender: TObject);
+begin
+  // GotoDatePicker.OnCloseUp should also point to this handler
+  JvTFDays1.GotoDate(GotoDatePicker.Date);
+  JvTFWeeks1.DisplayDate := GotoDatePicker.Date;
+  JvTFWeeks1.DisplayDate := GotoDatePicker.Date;
+end;
+
+procedure Tf_quan_ly_cuoc_song.GotoDatePickerUserInput(Sender: TObject;
+  const UserString: String; var DateAndTime: TDateTime;
+  var AllowChange: Boolean);
+begin
+  AllowChange := True;
+  GotoDatePicker.OnChange(nil);
+end;
+
+procedure Tf_quan_ly_cuoc_song.TimeIncComboChange(Sender: TObject);
+begin
+  Case TimeIncCombo.ItemIndex of
+     0 : JvTFDays1.Granularity := 60;
+     1 : JvTFDays1.Granularity := 30;
+     2 : JvTFDays1.Granularity := 20;
+     3 : JvTFDays1.Granularity := 15;
+     4 : JvTFDays1.Granularity := 12;
+     5 : JvTFDays1.Granularity := 10;
+     6 : JvTFDays1.Granularity := 6;
+     7 : JvTFDays1.Granularity := 5;
+     8 : JvTFDays1.Granularity := 4;
+     9 : JvTFDays1.Granularity := 3;
+    10 : JvTFDays1.Granularity := 2;
+    11 : JvTFDays1.Granularity := 1;
+  End;
+end;
+
+procedure Tf_quan_ly_cuoc_song.Timer1Timer(Sender: TObject);
+begin
+	l2.Caption:=IntToStr(Timer2.ComponentCount div 1000 );
+end;
+
+procedure Tf_quan_ly_cuoc_song.tm1Timer(Sender: TObject);
+begin
+	tm1.Enabled:=sai;
+	sttb1.Panels[0].Text:='';
+end;
+
+//======================================== 
+procedure Tf_quan_ly_cuoc_song.hien_thi_thong_diep(thong_diep:string);
+begin
+	if f_thong_diep=nil then
+		Application.CreateForm(Tf_thong_diep, f_thong_diep);
+	f_thong_diep.viet_thong_diep(thong_diep);
+	f_thong_diep.Show;                           
+end;
+//======================================== 
+
+procedure Tf_quan_ly_cuoc_song.tm_baoTimer(Sender: TObject);
+var
+	ma_nhom_tam:string;
+begin
+	if tg_dem_nguoc>0 then
+	begin
+		tg_dem_nguoc:=tg_dem_nguoc-1;
+		if tg_dem_nguoc=0 then
+		begin
+			if id_bao='0' then
+			begin
+				chuyen_ngay;
+			end
+			else
+			begin
+				ma_nhom_tam:=ma_nhom;
+				mo_am('at01.wma');
+				//tm_bao.Enabled:=sai;
+				//tach_dl(lb_tro(f_dl.lb_dl_cuoc_song,id_bao));
+				hien_thi_thong_diep(noi_dung_bao);
+				ma_nhom:=ma_nhom_tam;
+				cap_nhat_bao;
+			end;
+		end;
+	end;
+end;
+
+procedure Tf_quan_ly_cuoc_song.NewApptButtonClick(Sender: TObject);
+begin
+  // Simply open the EditAppt window.  The Appt var of the
+  // EditAppt form will already be nil (which indicates
+  // that the appoinment is being created).
+  ApptEdit.ShowModal;
+end;
+
+procedure Tf_quan_ly_cuoc_song.EditApptButtonClick(Sender: TObject);
+begin
+  If Assigned(JvTFDays1.SelAppt) Then
+		Begin
+      // Set EditAppt's Appt var to the selected appointment to
+      // indicate that the appointment should be edited.
+      ApptEdit.Appt := JvTFDays1.SelAppt;
+      ApptEdit.ShowModal;
+    End
+  Else
+	begin
+		sttb1.Panels[0].Text:='Cần chọn một cuộc hẹn để sửa';
+		tm1.Enabled:=dung;
+	end;
+end;
+
+procedure Tf_quan_ly_cuoc_song.DeleteApptButtonClick(Sender: TObject);
+var
+  Appt : TJvTFAppt;
+  dbDel : Boolean;
+  SelSchedName : String;
+begin
+  // This routine employs a simple business that asks the user what to
+  // do in the case where the user is attempting to delete a shared appt.
+  // NOTE:  This is NOT required.  You are completely free to implement
+	// any business rules you see fit.
+  // Another shortcut to save typing
+	Appt := JvTFDays1.SelAppt;
+
+  If Assigned(Appt) Then
+    Begin
+      dbDel := True;
+      If Appt.Shared Then
+        If MessageDlg('This appointment is shared with other schedules.' + #13#10 +
+                      'Do you want to delete the appointment from ' +
+                      'all schedules?' + #13#10#13#10 +
+                      'Choose ''No'' to delete the appointment from the ' +
+                      'selected schedule only.' + #13#10 +
+                      'Choose ''All'' to delete the appointment from all schedules.',
+                      mtConfirmation, [mbNo, mbAll], 0) = mrNo Then
+          Begin
+            // Don't delete the appointment, but remove it from the schedule
+            // of the selected resource.
+            dbDel := False;
+
+            With JvTFDays1 do
+              Begin
+                SelSchedName := '';
+                If ValidSelection and Cols[SelStart.X].Connected Then
+                  SelSchedName := Cols[SelStart.X].Schedule.SchedName;
+              End;
+
+            If SelSchedName <> '' Then
+              Appt.RemoveSchedule(SelSchedName)
+            Else
+              MessageDlg('No schedule is selected.' + #13#10 +
+                         'Could not remove appointment from schedule.',
+                         mtInformation, [mbOK], 0);
+          End;
+
+      If dbDel Then
+				If MessageDlg('Có chắc muốn xóa cuộc hẹn này?',
+											mtConfirmation, [mbYes, mbNo], 0) = mrYes Then
+          JvTFDays1.ScheduleManager.dbDeleteAppt(JvTFDays1.SelAppt);
+		End
+	Else
+		//MessageDlg('Please select an appointment to delete.',mtInformation, [mbOK], 0);
+	begin
+		sttb1.Panels[0].Text:='Cần chọn một cuộc hẹn để xóa';
+		tm1.Enabled:=dung;
+	end;
+end;
+
+procedure Tf_quan_ly_cuoc_song.JvTFDays1DateChanging(Sender: TObject;
+  var NewDate: TDate);
+begin
+  // Make sure all appts are posted before moving on.
+  JvTFDays1.ScheduleManager.PostAppts;
+end;
+
+procedure Tf_quan_ly_cuoc_song.JvTFDays1DateChanged(Sender: TObject);
+begin
+  // Synchronize the tool bar
+  With JvTFDays1.Template do
+		If ActiveTemplate = agtLinear Then
+      GotoDatePicker.Date := LinearStartDate
+    Else
+      GotoDatePicker.Date := CompDate;
+end;
+
+procedure Tf_quan_ly_cuoc_song.JvTFDays1GranularityChanged(Sender: TObject);
+begin
+  // Update the TimeIncCombo when the granularity is changed.
+  //  (This can be done by <Ctrl> + <Insert> and <Ctrl> + <Delete>)
+  Case JvTFDays1.Granularity of
+    60 : TimeIncCombo.ItemIndex := 0;
+    30 : TimeIncCombo.ItemIndex := 1;
+    20 : TimeIncCombo.ItemIndex := 2;
+    15 : TimeIncCombo.ItemIndex := 3;
+    12 : TimeIncCombo.ItemIndex := 4;
+    10 : TimeIncCombo.ItemIndex := 5;
+     6 : TimeIncCombo.ItemIndex := 6;
+     5 : TimeIncCombo.ItemIndex := 7;
+     4 : TimeIncCombo.ItemIndex := 8;
+     3 : TimeIncCombo.ItemIndex := 9;
+     2 : TimeIncCombo.ItemIndex := 10;
+  Else
+    TimeIncCombo.ItemIndex := 11;
+  End;
+end;
+
+procedure Tf_quan_ly_cuoc_song.JvTFDays1DblClick(Sender: TObject);
+begin
+  With JvTFDays1 do
+    If ValidSelection Then
+      If Assigned(SelAppt) Then
+        EditApptButtonClick(nil)
+      Else
+        NewApptButtonClick(nil);
+end;
+
+procedure Tf_quan_ly_cuoc_song.FormShow(Sender: TObject);
+var
+  ResName : String;
+  i:integer;
+	dong_dl:string;
+begin
+	GotoDatePicker.Date := EncodeDate(2016, 1, 1);
+	GotoDatePicker.DateTime:=now;
+  TimeIncCombo.ItemIndex := 1; // 30 mins
+
+  // Initialize the mode
+  ModeCombo.ItemIndex := 0; // Single mode
+  DaysCombo.ItemIndex := 6; // One day
+
+	// Populate the resource related controls
+	ResourceCombo.Clear;
+	VisibleResources.clb_nhom.Clear;
+	Share.ResourcesCheckList.Clear;
+	With f_dl.lb_dl_nhom do
+  begin
+		for I := 1 to Items.Count-1 do
+    Begin
+			dong_dl:=Items[i];
+			tach_cot(dong_dl);
+			ResName:=tach_cot(dong_dl);
+      //ResName := SchedulesQuery.FieldByName('SchedName').AsString;
+			ResourceCombo.Items.Add(ResName);
+			VisibleResources.clb_nhom.Items.Add(ResName);
+			Share.ResourcesCheckList.Items.Add(ResName);
+		End;
+  end;
+
+  // Initialize the resource related controls
+  ResourceCombo.ItemIndex := 0;
+	//VisibleResources.ResourcesCheckList.Checked[0] := True;
+
+  // Initialize the comparative template
+  //JvTFDays1.Template.CompNames.Add(VisibleResources.ResourcesCheckList.Items[0]);
+
+  // Now run the events to synchronize JvTFDays, etc.
+  ResourceComboChange(nil);
+	DaysComboChange(nil);
+  ModeComboChange(nil);
+	GotoDatePicker.Date := EncodeDate(2012,12,22);
+	GotoDatePicker.DateTime:=now;
+	GotoDatePickerChange(nil);
+	TimeIncComboChange(nil);
+	chuyen_ngay;
+end;
+
+procedure Tf_quan_ly_cuoc_song.PrintButtonClick(Sender: TObject);
+begin
+  With JvTFDaysPrinter1 do
+    Begin
+      // "Copy" the display properties from the JvTFDays control
+      SetProperties(JvTFDays1);
+      // Set gridline color to black for sharp display on printed page
+      GridLineColor := clBlack;
+      // print 48 rows on each page
+      PageLayout.RowsPerPage := 48;
+      // fit all the columns onto one page wide
+      PageLayout.ColsPerPage := 0;
+      // "Copy" the schedules from the JvTFDays control
+      Cols.Assign(JvTFDays1.Cols);
+      PrintProgress.Show;
+      Application.ProcessMessages;
+      // print the document
+      PrintDirect;
+      PrintProgress.Close;
+    End;
+end;
+
+procedure Tf_quan_ly_cuoc_song.JvTFDaysPrinter1ApptProgress(Sender: TObject;
+  Current, Total: Integer);
+begin
+  If Current > Total Then
+    Total := Current;
+  PrintProgress.Label2.Caption := 'Processing appointment ' + IntToStr(Current) +
+                                  ' of ' + IntToStr(Total) + ' (estimated)';
+  PrintProgress.ProgressBar1.Max := Total;
+  PrintProgress.ProgressBar1.Position := Current;
+end;
+
+procedure Tf_quan_ly_cuoc_song.JvTFDaysPrinter1AssembleProgress(Sender: TObject;
+  Current, Total: Integer);
+begin
+  PrintProgress.Label2.Caption := 'Assembling page ' + IntToStr(Current) +
+                                  ' of ' + IntToStr(Total); 
+  PrintProgress.ProgressBar1.Max := Total;
+  PrintProgress.ProgressBar1.Position := Current;
+end;
+
+procedure Tf_quan_ly_cuoc_song.JvTFDaysPrinter1PrintProgress(Sender: TObject;
+  Current, Total: Integer);
+begin
+  PrintProgress.Label2.Caption := 'Printing page ' + IntToStr(Current) +
+                                  ' of ' + IntToStr(Total);
+  PrintProgress.ProgressBar1.Max := Total;
+  PrintProgress.ProgressBar1.Position := Current;
+end;
+
+procedure Tf_quan_ly_cuoc_song.utfScheduleManager1LoadBatch(Sender: TObject;
+	BatchName: String; BatchStartDate, BatchEndDate: TDate);
+var
+	Appt : TJvTFAppt;
+  NewAppt : Boolean;
+	dong5:string;
+	a:integer;
+	so_nbd,so_nkt,so_nbdss,so_nktss:word;
+	nam_bdss,nam_ktss:word;
+begin
+	so_nbdss:=DayOfTheYear(BatchStartDate);
+	so_nktss:=DayOfTheYear(BatchEndDate); 
+	nam_bdss:=YearOf(BatchStartDate);
+	nam_ktss:=YearOf(BatchEndDate);
+
+		Begin
+	// Thiết lập các tham số truy vấn để truy vấn sẽ trả 
+	// tất cả các cuộc hẹn cho các nguồn tài nguyên cho rằng rơi vào ngày nhất định.
+			for a := 1 to f_dl.lb_dl_cuoc_song.items.count-1 do
+			begin
+				tach_dl(f_dl.lb_dl_cuoc_song.items[a]);
+				so_nbd:=DayOfTheYear(ngay_bd);	
+				so_nkt:=DayOfTheYear(ngay_kt);
+				
+				
+				//if (ngay_bd=BatchStartDate) then
+				if ((so_nbd>=so_nbdss)and(so_nkt<=so_nktss)and(nam_bdss=YearOf(ngay_bd))
+				and(nam_ktss=YearOf(ngay_kt))
+				or(noi_dung=BatchName)) then
+				begin
+					utfScheduleManager1.RequestAppt(ma,
+						Appt, NewAppt);
+					If NewAppt Then
+					Begin
+						Appt.SetStartEnd(ngay_bd,tg_bd,ngay_kt,tg_kt);
+						Appt.Description:=noi_dung;
+						Appt.AlarmEnabled :=bat_bao;
+						Appt.AlarmAdvance := tg_bao_truoc;
+						dong5:=lb_tro(f_dl.lb_dl_nhom, ma_toi_nhom);
+						tach_cot(dong5);
+						Appt.AddSchedule(tach_cot(dong5));
+					End;
+				end;  
+				{if lap='t' then
+				begin
+					lap:=tach_cot(dong4);
+					dong:=f_dl.lb_dl_cuoc_song.items[a];
+					tach_cot(dong);
+					tach_cot(dong);
+					t1:=tach_cot(dong);
+					tach_cot(dong);
+					t2:=tach_cot(dong);
+					noi_dung:=tach_cot(dong);
+					b:=tach_cot(dong);
+					tg:=tach_cot(dong);
+					//tach_cot(dong);
+					//tach_cot(dong);
+					//tach_cot(dong);
+					//tach_cot(dong);
+					for I := 2 to 8 do
+					begin
+						if lap[i]='c' then
+						begin
+							utfScheduleManager1.RequestAppt(id+IntToStr(i),Appt, NewAppt);
+							If NewAppt Then
+							Begin
+//								BatchStartDate:=BatchStartDate+1;
+								Appt.SetStartEnd(BatchStartDate+i-2,strtotime(t1),
+												 BatchStartDate+i-2,strtotime(t2));
+									 Appt.Description:=noi_dung;
+									 if b='d' then
+											Appt.AlarmEnabled := dung
+									 else
+											Appt.AlarmEnabled := sai;
+										Appt.AlarmAdvance := strtoint(tg);
+								for j := 1 to f_dl.lb_dl_lien_ket_nhom.items.Count-1 do
+								begin
+									dong5:=f_dl.lb_dl_lien_ket_nhom.Items[j];
+									if (Appt.ID)=(tach_cot(dong5)+IntToStr(i)) then
+										Appt.AddSchedule(tach_cot(dong5));
+								end;
+							End;
+						end;
+					end;
+				end;  }
+				
+			end;
+		End;
+end;
+
+procedure Tf_quan_ly_cuoc_song.Button1Click(Sender: TObject);
+begin
+	chuyen_ngay;
+end;
+
+procedure Tf_quan_ly_cuoc_song.cap_nhat_bao;
+var
+	i:integer;
+	hn: TDateTime;
+	nm: TDateTime;
+	tg1:TDateTime;
+	s:LongWord;
+	s2:LongWord;
+	s3:LongWord;
+	thu:byte;
+	cach_ngay:tdate;
+begin
+	FormatSettings.DateSeparator:='/';
+	sn:=200000;
+	hn:=Today;
+	nm:=Tomorrow;
+	thu:=thu_so(now);
+	//---------------------------------------- 
+	tg1:=StrTodateTime(DateToStr(hn)+' '+'23:59:59');
+	s:=SecondOfTheDay(tg1);
+	s2:=SecondOfTheDay(now);
+	s3:=s-s2;
+	if sn>s3 then
+	begin
+		sn:=s3;
+		id_bao:='0';
+		tg_dem_nguoc:=(s3+60);
+		//ma_nhom_tam:=ma_nhom;
+		//mo_am('at01.wma');
+		//tm_bao.Enabled:=sai;
+		tach_dl(lb_tro(f_dl.lb_dl_cuoc_song,id_bao));
+		noi_dung_bao:=noi_dung;
+		//tm_bao.Interval:=(s3+1)*1000;
+		//tm_bao.Enabled:=dung;
+	end;
+	//---------------------------------------- 
+	for i := 1 to f_dl.lb_dl_cuoc_song.items.count-1 do
+	begin
+		tach_dl(f_dl.lb_dl_cuoc_song.items[i]);
+		if (lap='t')and(ngay_bd<>hn) then
+		begin
+			lap:=lap_lai;
+			tach_cot(lap);
+			lap:=tach_cot(lap);
+			if (lap[thu]='c') then
+			begin
+				cach_ngay:=ngay_kt-ngay_bd;
+				ngay_bd:=now;
+				ngay_kt:=ngay_bd+cach_ngay;
+				nhap_dl;
+			end;
+		end;
+		//---------------------------------------- 
+		if (ngay_bd=hn)and (bat_bao=dung) then
+		begin
+			tg1:=StrToDateTime(DateToStr(ngay_bd)+' '+TimeToStr(tg_bd));
+			//tg1:=tg1-now;			s:=SecondOfTheDay(tg1);
+			s:=SecondOfTheDay(tg1);
+			s2:=SecondOfTheDay(now);
+			s3:=s-s2;
+			if (sn>s3)and(s3>59) then
+			begin
+				sn:=s3;
+				id_bao:=ma;
+				tg_dem_nguoc:=s3;
+				tach_dl(lb_tro(f_dl.lb_dl_cuoc_song,id_bao));
+				noi_dung_bao:=noi_dung;
+				//tm_bao.Interval:=s3*1000;
+				//tm_bao.Enabled:=dung;
+			end;
+		end;
+		//---------------------------------------- 
+		if ((ngay_bd=hn)or(ngay_kt=nm))
+		and (bat_bao=dung) then
+		begin
+			
+			//f_LDNam_sys_thoi_gian.lb_danh_sach.Items.Add(id);
+			
+		end;
+	end;
+	luu_thong_so;
+end;
+procedure Tf_quan_ly_cuoc_song.FormClose(Sender: TObject;
+	var Action: TCloseAction);
+begin
+	luu_thong_so;
+end;
+
+procedure Tf_quan_ly_cuoc_song.FormCreate(Sender: TObject);
+begin	
+	FormatSettings.DateSeparator:='/';	
+	ten_f_dlcs1 := duong_dan_goc + f_dl_nhom;
+	lb_luu_file(f_dl.lb_dl_nhom,ten_f_dlcs1);
+	ten_f_dlcs3 := duong_dan_goc + f_dl_cuoc_song;
+	lb_luu_file(f_dl.lb_dl_cuoc_song,ten_f_dlcs3);
+	chon:=chon_huy;
+	cap_nhat_bao;
+	doc_thong_so;
+	
+	//utfScheduleManager1.
+end;
+
+end.

@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{369F8903-1F7D-445E-BEFF-AC48D999D69D}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="key_logger.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="DllHook.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="key_logger">
+        <MSBuild Projects="key_logger.dproj"/>
+    </Target>
+    <Target Name="key_logger:Clean">
+        <MSBuild Projects="key_logger.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="key_logger:Make">
+        <MSBuild Projects="key_logger.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="DllHook">
+        <MSBuild Projects="DllHook.dproj"/>
+    </Target>
+    <Target Name="DllHook:Clean">
+        <MSBuild Projects="DllHook.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DllHook:Make">
+        <MSBuild Projects="DllHook.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="key_logger;DllHook"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="key_logger:Clean;DllHook:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="key_logger:Make;DllHook:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

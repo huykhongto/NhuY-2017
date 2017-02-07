@@ -1,0 +1,547 @@
+﻿unit f_quan_ly_thau_kinh_f;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+	Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.DBCtrls, Vcl.StdCtrls,
+	Vcl.ComCtrls, Vcl.ExtCtrls,LDNam_sys,LDNam_xu_ly_du_lieu,f_dl_f,
+	JvExStdCtrls, JvCombobox, System.UITypes,LDNam_dl, Vcl.Menus, DragDrop,
+	DropTarget, DropComboTarget, ShlObj,ShellAPI;
+
+type
+	Tf_quan_ly_thau_kinh = class(TForm)
+    lv_thau_kinh: TListView;
+    Panel1: TPanel;
+    Splitter1: TSplitter;
+		cbb_tim: TComboBox;
+    b_tim: TButton;
+    Label1: TLabel;
+    Label2: TLabel;
+    cbb_muc: TComboBox;
+    Label4: TLabel;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    b_xoa: TButton;
+    b_sua: TButton;
+    b_them: TButton;
+    b_xoa_muc: TButton;
+    sttb1: TStatusBar;
+    tm1: TTimer;
+    ttp_ngay_cn: TDateTimePicker;
+    lb_so_kh: TLabel;
+    cbb_gia_von: TComboBox;
+    cbb_gia_ban: TComboBox;
+    m_khac: TMemo;
+    m_thong_tin: TMemo;
+    cbb_ten: TComboBox;
+    cbb_ma: TComboBox;
+    Label3: TLabel;
+    Label5: TLabel;
+    Splitter2: TSplitter;
+    Panel5: TPanel;
+    lv_thau_kinh_tim: TListView;
+    cbb_don_vi_tinh: TComboBox;
+    Label6: TLabel;
+    b_chuyen_gia: TButton;
+    cbb_pt: TComboBox;
+    PopupMenu1: TPopupMenu;
+    Mthmc1: TMenuItem;
+    dct_1: TDropComboTarget;
+    cbb_thu_muc: TComboBox;
+    Label7: TLabel;
+    procedure FormCreate(Sender: TObject);
+		procedure b_themClick(Sender: TObject);
+		procedure them_dl(lua_chon: byte);
+    procedure tm1Timer(Sender: TObject);
+    procedure b_xoa_mucClick(Sender: TObject);
+    procedure lv_thau_kinhMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure b_suaClick(Sender: TObject);
+    procedure lv_thau_kinhColumnClick(Sender: TObject; Column: TListColumn);
+    procedure lv_thau_kinhCompare(Sender: TObject; Item1, Item2: TListItem;
+			Data: Integer; var Compare: Integer);
+		procedure luu_thong_so;
+		//procedure luu_ts_them(ts:string);
+		procedure doc_thong_so1;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Button2Click(Sender: TObject);
+    procedure cbb_gia_vonChange(Sender: TObject);
+    procedure cbb_gia_banChange(Sender: TObject);
+    procedure b_timClick(Sender: TObject);
+    procedure cbb_timChange(Sender: TObject);
+    procedure cbb_timKeyPress(Sender: TObject; var Key: Char);
+    procedure Panel1Click(Sender: TObject);
+    procedure b_chuyen_giaClick(Sender: TObject);
+    procedure lv_thau_kinh_timMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure dct_1Drop(Sender: TObject; ShiftState: TShiftState;
+      APoint: TPoint; var Effect: Integer);
+    procedure Mthmc1Click(Sender: TObject);
+  private
+		{ Private declarations }
+		sap_xep_tang: boolean;
+		cot_sap_xep: integer;
+  public
+    { Public declarations }
+  end;
+
+var
+	f_quan_ly_thau_kinh: Tf_quan_ly_thau_kinh;
+	ma_thau_kinh:string;
+	ma_thau_kinh_ht:string; // ma thấu kính hiển thị
+	da_tim:bool;
+	vi_tri_xem:integer;
+	dl_thau_kinh:TLDNam_dl;
+const
+	so_cot_dl=10;
+implementation
+
+{$R *.dfm}
+procedure Tf_quan_ly_thau_kinh.dct_1Drop(Sender: TObject;
+  ShiftState: TShiftState; APoint: TPoint; var Effect: Integer);
+var
+  Stream: TStream;
+  i: integer;
+	Name: string;
+	duoi:string;
+begin
+	// Clear all formats.
+//	EditURLURL.Text := '';
+//	EditURLTitle.Text := '';
+//	MemoText.Lines.Clear;
+//	ImageBitmap.Picture.Assign(nil);
+//	ImageMetaFile.Picture.Assign(nil);
+//	ListBoxFiles.Items.Clear;
+//	ListBoxMaps.Items.Clear;
+//	ListViewData.Items.Clear;
+//
+//	// Copy the rest of the dropped formats.
+//	ListBoxFiles.Items.Assign(dct_1.Files);
+//	ListBoxMaps.Items.Assign(dct_1.FileMaps);
+//	EditURLURL.Text := dct_1.URL;
+//	EditURLTitle.Text := dct_1.Title;
+//	ImageBitmap.Picture.Assign(dct_1.Bitmap);
+//	ImageMetaFile.Picture.Assign(dct_1.MetaFile);
+//	MemoText.Lines.Text := dct_1.Text;
+//
+//	// Determine which formats were dropped.
+//	TabSheetFiles.TabVisible := (ListBoxFiles.Items.Count > 0);
+//	TabSheetURL.TabVisible := (EditURLURL.Text <> '') or (EditURLTitle.Text <> '');
+//	TabSheetBitmap.TabVisible := (ImageBitmap.Picture.Graphic <> nil) and
+//		(not ImageBitmap.Picture.Graphic.Empty);
+//	TabSheetMetaFile.TabVisible := (ImageMetaFile.Picture.Graphic <> nil) and
+//		(TMetaFile(ImageMetaFile.Picture.Graphic).Handle <> 0);
+//	TabSheetText.TabVisible := (MemoText.Lines.Count > 0);
+//	TabSheetData.TabVisible := (ListViewData.Items.Count > 0);
+	cbb_thu_muc.Items.Clear;
+	cbb_thu_muc.Items.Assign(dct_1.Files);
+	if cbb_thu_muc.Items.Count>0 then
+		cbb_thu_muc.ItemIndex:=0;
+end;
+
+procedure Tf_quan_ly_thau_kinh.doc_thong_so1;
+var 
+	j:integer;
+	i:integer;
+	lb_ts:TListBox;
+	function tach_b(c:string) :boolean;
+	begin
+		Result:=sai;
+		if c='d' then
+			Result:=dung;
+	end;
+	function tach_s(c:string) :integer;
+	begin
+		Result:=0;
+		if c<>'' then
+			Result:=StrToInt(c);
+	end;
+	function tach_s_md(c:string;md:integer) :integer;
+	begin
+		Result:=md;
+		if c<>'' then
+			Result:=StrToInt(c);
+	end;
+	function tach_c_md(c:string;md:string) :string;
+	begin
+		Result:=md;
+		if c<>'' then
+			Result:=c;
+	end;
+	
+const so_dl=13;
+begin
+	dl_thau_kinh.doc_thong_so;
+	for I := 1 to dl_thau_kinh.thong_so.Count do
+	begin
+		case i of
+			1:f_quan_ly_thau_kinh.Left:=tach_s(dl_thau_kinh.thong_so[i]);
+			2:f_quan_ly_thau_kinh.top:=tach_s(dl_thau_kinh.thong_so[i]);
+			3:ma_thau_kinh:= tach_c_md(dl_thau_kinh.thong_so[i],'TK000000');
+		end;
+	end;
+//	for j := 0 to so_cot_dl do
+//	begin
+//		lv_thau_kinh.Columns[j].Width:=tach_s_md(lb_ts.Items[i],50);
+//		inc(i);
+//	end;
+//	for j := 0 to so_cot_dl+1 do
+//	begin
+//		lv_thau_kinh_tim.Columns[j].Width:=tach_s_md(lb_ts.Items[i],50);
+//		inc(i);
+//	end;
+//	Splitter2.Top:=tach_s_md(lb_ts.Items[i],300);
+//	inc(i);
+//	Splitter1.Top:=tach_s_md(lb_ts.Items[i],179);
+end;
+//======================================== 
+procedure Tf_quan_ly_thau_kinh.luu_thong_so;
+var
+	dong:string;
+	i:integer;
+	procedure them_c(ts:string);
+	begin
+		dong:=dong+ts+phan_cot;
+	end;
+	procedure them_s(s:integer);
+	begin
+		them_c(IntToStr(s));
+	end;
+	procedure them_b(b:boolean);
+	Var
+		b_c: string;
+	begin
+		b_c:='s';
+		if b=dung then
+			b_c:='d';
+		them_c(b_c);
+	end;
+begin
+	dong:=phien_ban_du_lieu+phan_cot;
+	them_s(f_quan_ly_thau_kinh.Left); // 1
+	them_s(f_quan_ly_thau_kinh.Top); // 2
+	them_c(ma_thau_kinh); // 3
+	for i := 0 to so_cot_dl do
+	begin
+		them_s(lv_thau_kinh.Columns[i].Width);
+	end;
+	for i := 0 to so_cot_dl+1 do
+	begin
+		them_s(lv_thau_kinh_tim.Columns[i].Width);
+	end;
+	them_s(Splitter2.Top);
+	them_s(Splitter1.Top);
+//	them_cot_lb(f_dl.lb_thau_kinh);
+	//them_s(so_cot_dl);
+	dl_thau_kinh.sl_dl[0]:=dong;
+	dl_thau_kinh.luu;
+	//them_c('1111');
+end;
+//======================================== 
+procedure Tf_quan_ly_thau_kinh.them_dl(lua_chon: byte);
+var
+	ngay_cn:string;
+	dong_dl:string;
+	dong_thong_tin:string;
+	dong_khac:string;
+	procedure them(c: string);
+	begin
+		dong_dl:=dong_dl+c+phan_cot;
+	end;
+begin
+	if lua_chon=1 then
+	begin
+		//e_ngay_hoan_thanh.Text := '';
+		ngay_cn := DateTimeToStr(now);
+	end;
+	if cbb_ten.Text = '' then
+	begin
+		sttb1.Panels[0].Text := 'Bạn chưa nhập tên Thấu Kính';
+		tm1.Enabled := true;
+	end
+	else
+	begin
+		begin
+			dong_dl := '';
+			dong_thong_tin := n_dong_chuoi_mm(m_thong_tin);
+			dong_khac:=n_dong_chuoi_mm(m_khac);
+			if lua_chon=1 then
+			begin
+				them(ma_thau_kinh); // 1
+			end
+			else
+			begin
+				them(ma_thau_kinh_ht); // 1
+			end;
+			
+			them(cbb_ten.Text); // 2
+			them(cbb_ma.Text); // 3
+			them(DateTimeToStr(ttp_ngay_cn.DateTime)); // 4
+			them(dong_thong_tin); // 5
+			them(dong_khac); // 6
+			them(cbb_gia_von.Text); // 7
+			them(cbb_gia_ban.Text); // 8
+			them('LN'); // 9
+			them('muc'); // 10
+			them(cbb_don_vi_tinh.Text);
+			them(cbb_thu_muc.Text);
+			
+			if lua_chon=1 then
+			begin
+				ma_thau_kinh:=tang_chuoi_so_5(ma_thau_kinh);
+				dl_thau_kinh.sl_dl.Add(dong_dl);
+			end
+			else
+			begin
+				sl_sua(dl_thau_kinh.sl_dl,dong_dl);
+			end;
+		end;
+		//f_dl.lb_thau_kinh_luu;
+		tm1.Enabled := true;
+		sttb1.Panels[0].Text := 'Thành công';
+		lb_so_kh.Caption := 'Số Thấu kính: ' +IntToStr(dl_thau_kinh.sl_dl.Count-1);
+		sl_lv(dl_thau_kinh.sl_dl,lv_thau_kinh);
+		luu_thong_so;
+	end;
+end;
+//======================================== 
+procedure Tf_quan_ly_thau_kinh.lv_thau_kinhMouseDown(Sender: TObject;
+	Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+	ListItem: TListItem;
+	thong_tin: string;
+	khac:string;
+begin
+	if lv_thau_kinh.itemindex <> -1 then
+	begin
+		ListItem := lv_thau_kinh.Items[lv_thau_kinh.ItemIndex];
+		with ListItem do
+	begin
+		ma_thau_kinh_ht:=Caption;
+		cbb_ten.Text:= SubItems.Strings[0];
+		cbb_ma.Text:= SubItems.Strings[1];
+		khac := SubItems.Strings[4];
+		thong_tin := SubItems.Strings[3];
+		cbb_gia_von.Text:=SubItems.Strings[5];
+		cbb_gia_ban.Text:=SubItems.Strings[6];
+		thong_tin:= StringReplace(thong_tin, phan_dong, Chr($0D) + Chr($0A), [rfReplaceAll]);
+		m_thong_tin.Text := thong_tin;
+		khac:= StringReplace(khac, phan_dong, Chr($0D) + Chr($0A), [rfReplaceAll]);
+		m_khac.Text:=khac;
+		cbb_don_vi_tinh.Text:=SubItems.Strings[9];
+		cbb_thu_muc.Text:=SubItems.Strings[10];
+	end;
+	end;
+end;
+procedure Tf_quan_ly_thau_kinh.lv_thau_kinh_timMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+	ListItem: TListItem;
+	thong_tin: string;
+	khac:string;
+begin
+	if lv_thau_kinh_tim.itemindex <> -1 then
+	begin
+		ListItem := lv_thau_kinh_tim.Items[lv_thau_kinh_tim.ItemIndex];
+		with ListItem do
+	begin
+		ma_thau_kinh_ht:=Caption;
+		cbb_ten.Text:= SubItems.Strings[0];
+		cbb_ma.Text:= SubItems.Strings[1];
+		khac := SubItems.Strings[4];
+		thong_tin := SubItems.Strings[3];
+		cbb_gia_von.Text:=SubItems.Strings[5];
+		cbb_gia_ban.Text:=SubItems.Strings[6];
+		thong_tin:= StringReplace(thong_tin, phan_dong, Chr($0D) + Chr($0A), [rfReplaceAll]);
+		m_thong_tin.Text := thong_tin;
+		khac:= StringReplace(khac, phan_dong, Chr($0D) + Chr($0A), [rfReplaceAll]);
+		m_khac.Text:=khac;
+		cbb_don_vi_tinh.Text:=SubItems.Strings[9];
+		cbb_thu_muc.Text:=SubItems.Strings[10];
+	end;
+	end;
+end;
+//======================================== 
+procedure Tf_quan_ly_thau_kinh.Mthmc1Click(Sender: TObject);
+begin
+	OpenFolderAndSelectFile(cbb_thu_muc.Text);
+end;
+
+procedure Tf_quan_ly_thau_kinh.Panel1Click(Sender: TObject);
+begin
+
+end;
+
+//---------------------------------------- 
+procedure Tf_quan_ly_thau_kinh.tm1Timer(Sender: TObject);
+begin
+	sttb1.Panels[0].Text := '';
+	tm1.Enabled := false;
+end;
+
+//======================================== 
+//---------------------------------------- 
+procedure Tf_quan_ly_thau_kinh.b_timClick(Sender: TObject);
+var
+	sl:TStringlist;
+begin
+	if da_tim=False then
+	begin
+		da_tim:=true;
+		vi_tri_xem:=0;
+		lv_thau_kinh_tim.Clear;
+		sl:=TStringlist.Create;
+		tim_kiem_sl(cbb_tim.Text,dl_thau_kinh.sl_dl,sl);
+		sl_lv(sl,lv_thau_kinh_tim);
+		lv_thau_kinh_tim.CustomSort(@Sap_xep_so_lv,-11);
+		sl.Free;
+	end;
+end;
+
+procedure Tf_quan_ly_thau_kinh.Button2Click(Sender: TObject);
+begin
+	ma_thau_kinh:=tang_chuoi_so_5(ma_thau_kinh);
+end;
+
+procedure Tf_quan_ly_thau_kinh.b_chuyen_giaClick(Sender: TObject);
+var 
+	gia_ban:extended;
+begin
+	gia_ban:=StrToFloat(cbb_gia_von.text)+StrToFloat(cbb_gia_von.text)/100*StrToFloat(cbb_pt.text);	
+	cbb_gia_ban.Text:=FormatFloat('0',gia_ban);
+end;
+
+procedure Tf_quan_ly_thau_kinh.b_suaClick(Sender: TObject);
+begin
+	if MessageDlg('Bạn có muốn sửa liệu này!?', mtConfirmation, [mbYes, mbNo],
+		0) = idYes then
+		them_dl(0);
+end;
+
+procedure Tf_quan_ly_thau_kinh.b_themClick(Sender: TObject);
+begin
+	them_dl(1);
+end;
+
+procedure Tf_quan_ly_thau_kinh.b_xoa_mucClick(Sender: TObject);
+begin
+	if lv_thau_kinh.ItemIndex>=0 then
+	begin
+		if MessageDlg('Bạn có muốn xóa mục này!?', mtConfirmation, [mbYes, mbNo], 0) = idYes
+		then
+		begin
+			sl_xoa(dl_thau_kinh.sl_dl,ma_thau_kinh_ht);
+			dl_thau_kinh.luu;
+			lb_so_kh.Caption := 'Số Thấu kính: ' + IntToStr(dl_thau_kinh.sl_dl.Count-1);
+			lv_thau_kinh.Items.Delete(lv_thau_kinh.itemindex);
+		end;
+	end;
+end;
+
+procedure Tf_quan_ly_thau_kinh.cbb_gia_banChange(Sender: TObject);
+begin
+	cbb_gia_ban.Hint:=so_ra_chu(strtoint64(cbb_gia_ban.Text),sai,dung);
+end;
+
+procedure Tf_quan_ly_thau_kinh.cbb_gia_vonChange(Sender: TObject);
+begin
+	cbb_gia_von.Hint:=so_ra_chu(strtoint64(cbb_gia_von.Text),sai,dung);
+end;
+
+procedure Tf_quan_ly_thau_kinh.cbb_timChange(Sender: TObject);
+begin
+	da_tim:=sai;
+end;
+
+procedure Tf_quan_ly_thau_kinh.cbb_timKeyPress(Sender: TObject; var Key: Char);
+begin
+	if key=#13 then
+	begin
+		b_tim.Click;
+		key:= #0;
+	end;
+end;
+
+procedure Tf_quan_ly_thau_kinh.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+	luu_thong_so;
+end;
+
+procedure Tf_quan_ly_thau_kinh.FormCreate(Sender: TObject);
+begin
+	Tao_thu_muc(duong_dan_dl+'\Du lieu');
+	dl_thau_kinh:=TLDNam_dl.tao('DL Thau Kinh.LDN');
+	doc_thong_so1;
+	cbb_don_vi_tinh.Items.Add('Cái');
+	cbb_don_vi_tinh.Items.Add('Bộ');
+	cbb_don_vi_tinh.ItemIndex:=0;
+	sl_lv(dl_thau_kinh.sl_dl,lv_thau_kinh);
+	//cbb_don_vi_tinh.Items.Add('Bộ');
+end;
+
+procedure Tf_quan_ly_thau_kinh.lv_thau_kinhColumnClick(Sender: TObject;
+	Column: TListColumn);
+begin
+	sap_xep_tang := not sap_xep_tang; // inversion du précédent ordre de tri
+	cot_sap_xep := Column.Index; // Quel colonne est à trier ?
+	// Ensuite on détermine quel est le type de colonne à trier:
+	// on peut aussi les déterminer en spécifiant un tag particulier dans chaque colonne
+	if (AnsiPos('Ngày thêm', Column.Caption) > 0) or
+		(AnsiPos('Ngày hoàn thành', Column.Caption) > 0) then
+	begin
+		if sap_xep_tang then
+			(Sender as TCustomListView).CustomSort(@Sap_xep_thoi_gian_lv,
+				Column.Index)
+		else
+			(Sender as TCustomListView).CustomSort(@Sap_xep_thoi_gian_lv,
+				-Column.Index)
+	end
+	else if (AnsiPos('Dự tính', Column.Caption) > 0) then
+	begin
+		if sap_xep_tang then
+			(Sender as TCustomListView).CustomSort(@Sap_xep_ngay_thang_lv,
+				Column.Index)
+		else
+			(Sender as TCustomListView).CustomSort(@Sap_xep_ngay_thang_lv,
+				-Column.Index)
+	end
+	else if AnsiPos('Quan trọng', Column.Caption) > 0 then
+	begin
+		if sap_xep_tang then
+			(Sender as TCustomListView).CustomSort(@Sap_xep_so_lv, Column.Index)
+		else
+			(Sender as TCustomListView).CustomSort(@Sap_xep_so_lv, -Column.Index)
+	end
+	else          
+		(Sender as TCustomListView).AlphaSort;
+		//f_dl.lb_thau_kinh_luu_lv(lv_thau_kinh,7);
+end;
+
+procedure Tf_quan_ly_thau_kinh.lv_thau_kinhCompare(Sender: TObject; Item1,
+	Item2: TListItem; Data: Integer; var Compare: Integer);
+var
+	ix: integer;
+begin
+	if sap_xep_tang then
+		if cot_sap_xep = 0 then
+			Compare := CompareText(Item1.Caption, Item2.Caption)
+		else
+		begin
+			ix := cot_sap_xep - 1;
+			Compare := CompareText(Item1.SubItems[ix], Item2.SubItems[ix]);
+		end
+	else if cot_sap_xep = 0 then
+		Compare := CompareText(Item2.Caption, Item1.Caption)
+	else
+	begin
+		ix := cot_sap_xep - 1;
+		Compare := CompareText(Item2.SubItems[ix], Item1.SubItems[ix]);
+	end;
+end;
+
+
+
+end.
+

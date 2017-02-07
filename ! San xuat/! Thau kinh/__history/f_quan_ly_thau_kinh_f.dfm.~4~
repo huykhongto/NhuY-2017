@@ -1,0 +1,442 @@
+object f_quan_ly_thau_kinh: Tf_quan_ly_thau_kinh
+  Left = 0
+  Top = 0
+  Caption = 'Qu'#7843'n l'#253' Th'#7845'u K'#237'nh'
+  ClientHeight = 540
+  ClientWidth = 710
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnClose = FormClose
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Splitter1: TSplitter
+    Left = 0
+    Top = 313
+    Width = 710
+    Height = 3
+    Cursor = crVSplit
+    Align = alTop
+    ExplicitLeft = 64
+    ExplicitTop = 329
+  end
+  object Splitter2: TSplitter
+    Left = 0
+    Top = 179
+    Width = 710
+    Height = 3
+    Cursor = crVSplit
+    Align = alTop
+    ExplicitTop = 337
+    ExplicitWidth = 97
+  end
+  object Panel5: TPanel
+    Left = 0
+    Top = 316
+    Width = 710
+    Height = 205
+    Align = alClient
+    TabOrder = 3
+    ExplicitTop = 340
+    ExplicitHeight = 181
+    object lv_thau_kinh_tim: TListView
+      Left = 1
+      Top = 1
+      Width = 708
+      Height = 203
+      Align = alClient
+      Checkboxes = True
+      Columns = <
+        item
+          Caption = 'M'#227
+          MinWidth = 2
+          Width = 150
+        end
+        item
+          Caption = 'T'#234'n'
+          Width = 60
+        end
+        item
+          Caption = 'M'#227' hi'#7879'u'
+        end
+        item
+          Caption = 'Ng'#224'y c'#7853'p nh'#7853't'
+          Width = 100
+        end
+        item
+          Caption = 'Th'#244'ng tin'
+          Width = 70
+        end
+        item
+          Caption = 'L'#7883'ch s'#7917
+          Width = 100
+        end
+        item
+          Caption = 'Gi'#225' v'#7889'n'
+          Width = 100
+        end
+        item
+          Caption = 'Gi'#225' b'#225'n'
+          Width = 40
+        end
+        item
+          Caption = 'L'#7907'i nhu'#7853'n'
+        end
+        item
+          Caption = 'M'#7913'c'
+        end
+        item
+          Caption = #272'V-T'#237'nh'
+        end
+        item
+          Caption = 'Th'#432' m'#7909'c'
+        end
+        item
+          Caption = 'T'#7927' l'#7879
+        end>
+      GridLines = True
+      ReadOnly = True
+      RowSelect = True
+      PopupMenu = PopupMenu1
+      TabOrder = 0
+      ViewStyle = vsReport
+      OnColumnClick = lv_thau_kinhColumnClick
+      OnCompare = lv_thau_kinhCompare
+      OnMouseDown = lv_thau_kinhMouseDown
+      ExplicitTop = 2
+    end
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 710
+    Height = 179
+    Align = alTop
+    TabOrder = 0
+    OnClick = Panel1Click
+    object Label1: TLabel
+      Left = 8
+      Top = 35
+      Width = 67
+      Height = 13
+      Caption = 'T'#234'n s'#7843'n ph'#7849'm'
+    end
+    object Label2: TLabel
+      Left = 272
+      Top = 35
+      Width = 37
+      Height = 13
+      Caption = 'M'#227' hi'#7879'u'
+    end
+    object Label4: TLabel
+      Left = 422
+      Top = 84
+      Width = 20
+      Height = 13
+      Caption = 'M'#7913'c'
+    end
+    object lb_so_kh: TLabel
+      Left = 520
+      Top = 35
+      Width = 71
+      Height = 13
+      Caption = 'T'#7893'ng th'#7845'u k'#237'nh'
+    end
+    object Label3: TLabel
+      Left = 304
+      Top = 133
+      Width = 36
+      Height = 13
+      Caption = 'Gi'#225' v'#7889'n'
+    end
+    object Label5: TLabel
+      Left = 467
+      Top = 133
+      Width = 36
+      Height = 13
+      Caption = 'Gi'#225' b'#225'n'
+    end
+    object Label6: TLabel
+      Left = 392
+      Top = 35
+      Width = 52
+      Height = 13
+      Caption = #272#417'n v'#7883' t'#237'nh'
+    end
+    object cbb_tim: TComboBox
+      Left = 8
+      Top = 8
+      Width = 249
+      Height = 21
+      TabOrder = 0
+      Text = 'T'#236'm ki'#7871'm'
+      OnChange = cbb_timChange
+      OnKeyPress = cbb_timKeyPress
+    end
+    object b_tim: TButton
+      Left = 263
+      Top = 4
+      Width = 49
+      Height = 25
+      Caption = 'T'#236'm'
+      TabOrder = 1
+      OnClick = b_timClick
+    end
+    object cbb_ten: TComboBox
+      Left = 8
+      Top = 54
+      Width = 249
+      Height = 21
+      TabOrder = 2
+    end
+    object cbb_ma: TComboBox
+      Left = 263
+      Top = 54
+      Width = 114
+      Height = 21
+      TabOrder = 3
+    end
+    object m_thong_tin: TMemo
+      Left = 8
+      Top = 81
+      Width = 290
+      Height = 88
+      ScrollBars = ssBoth
+      TabOrder = 4
+    end
+    object cbb_muc: TComboBox
+      Left = 448
+      Top = 81
+      Width = 66
+      Height = 21
+      TabOrder = 5
+    end
+    object Panel3: TPanel
+      Left = 430
+      Top = 4
+      Width = 279
+      Height = 25
+      Alignment = taRightJustify
+      TabOrder = 6
+      object b_xoa: TButton
+        Left = 0
+        Top = 0
+        Width = 57
+        Height = 25
+        Caption = 'X'#243'a'
+        TabOrder = 0
+      end
+      object b_sua: TButton
+        Left = 63
+        Top = 0
+        Width = 58
+        Height = 25
+        Caption = 'S'#7917'a'
+        TabOrder = 1
+        OnClick = b_suaClick
+      end
+      object b_them: TButton
+        Left = 127
+        Top = 0
+        Width = 58
+        Height = 25
+        Caption = 'Th'#234'm'
+        TabOrder = 2
+        OnClick = b_themClick
+      end
+      object b_xoa_muc: TButton
+        Left = 191
+        Top = 0
+        Width = 82
+        Height = 25
+        Caption = 'X'#243'a m'#7909'c'
+        TabOrder = 3
+        OnClick = b_xoa_mucClick
+      end
+    end
+    object ttp_ngay_cn: TDateTimePicker
+      Left = 317
+      Top = 81
+      Width = 99
+      Height = 22
+      Date = 42662.000000000000000000
+      Time = 42662.000000000000000000
+      TabOrder = 7
+    end
+    object cbb_gia_von: TComboBox
+      Left = 304
+      Top = 152
+      Width = 98
+      Height = 21
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 8
+      OnChange = cbb_gia_vonChange
+    end
+    object cbb_gia_ban: TComboBox
+      Left = 408
+      Top = 152
+      Width = 95
+      Height = 21
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 9
+      OnChange = cbb_gia_banChange
+    end
+    object m_khac: TMemo
+      Left = 520
+      Top = 54
+      Width = 190
+      Height = 119
+      Align = alCustom
+      Alignment = taRightJustify
+      ScrollBars = ssBoth
+      TabOrder = 10
+    end
+    object cbb_don_vi_tinh: TComboBox
+      Left = 392
+      Top = 54
+      Width = 122
+      Height = 21
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 11
+    end
+    object b_chuyen_gia: TButton
+      Left = 418
+      Top = 121
+      Width = 43
+      Height = 25
+      Caption = '>>'
+      TabOrder = 12
+      OnClick = b_chuyen_giaClick
+    end
+    object cbb_pt: TComboBox
+      Left = 358
+      Top = 125
+      Width = 54
+      Height = 21
+      ItemIndex = 1
+      TabOrder = 13
+      Text = '8'
+      Items.Strings = (
+        '5'
+        '8'
+        '10'
+        '11'
+        '20')
+    end
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 182
+    Width = 710
+    Height = 131
+    Align = alTop
+    TabOrder = 1
+    object lv_thau_kinh: TListView
+      Left = 1
+      Top = 1
+      Width = 708
+      Height = 129
+      Align = alClient
+      Checkboxes = True
+      Columns = <
+        item
+          Caption = 'M'#227
+          MinWidth = 2
+          Width = 150
+        end
+        item
+          Caption = 'T'#234'n'
+          Width = 60
+        end
+        item
+          Caption = 'M'#227' hi'#7879'u'
+        end
+        item
+          Caption = 'Ng'#224'y c'#7853'p nh'#7853't'
+          Width = 100
+        end
+        item
+          Caption = 'Th'#244'ng tin'
+          Width = 70
+        end
+        item
+          Caption = 'L'#7883'ch s'#7917
+          Width = 100
+        end
+        item
+          Caption = 'Gi'#225' v'#7889'n'
+          Width = 100
+        end
+        item
+          Caption = 'Gi'#225' b'#225'n'
+          Width = 40
+        end
+        item
+          Caption = 'L'#7907'i nhu'#7853'n'
+        end
+        item
+          Caption = 'M'#7913'c'
+        end
+        item
+          Caption = #272'V-T'#237'nh'
+        end
+        item
+          Caption = 'Th'#432' m'#7909'c'
+        end>
+      GridLines = True
+      ReadOnly = True
+      RowSelect = True
+      PopupMenu = PopupMenu1
+      TabOrder = 0
+      ViewStyle = vsReport
+      OnColumnClick = lv_thau_kinhColumnClick
+      OnCompare = lv_thau_kinhCompare
+      OnMouseDown = lv_thau_kinhMouseDown
+      ExplicitLeft = 2
+      ExplicitTop = 0
+      ExplicitHeight = 153
+    end
+  end
+  object sttb1: TStatusBar
+    Left = 0
+    Top = 521
+    Width = 710
+    Height = 19
+    Panels = <
+      item
+        Width = 200
+      end
+      item
+        Width = 50
+      end>
+  end
+  object tm1: TTimer
+    Enabled = False
+    Interval = 2000
+    OnTimer = tm1Timer
+    Left = 640
+    Top = 56
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 488
+    Top = 238
+    object Mthmc1: TMenuItem
+      Caption = 'M'#7903' th'#432' m'#7909'c'
+    end
+  end
+  object dct_1: TDropComboTarget
+    DragTypes = [dtCopy, dtLink]
+    Target = Owner
+    WinTarget = 0
+    Left = 484
+    Top = 104
+  end
+end

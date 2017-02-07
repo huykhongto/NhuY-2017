@@ -1,0 +1,359 @@
+object f_quan_ly_khach_hanh: Tf_quan_ly_khach_hanh
+  Left = 0
+  Top = 0
+  Caption = 'Qu'#7843'n l'#253' Ng'#244'i Sao'
+  ClientHeight = 519
+  ClientWidth = 687
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Splitter1: TSplitter
+    Left = 0
+    Top = 153
+    Width = 687
+    Height = 3
+    Cursor = crVSplit
+    Align = alTop
+    ExplicitTop = 73
+    ExplicitWidth = 660
+  end
+  object Splitter2: TSplitter
+    Left = 0
+    Top = 337
+    Width = 687
+    Height = 3
+    Cursor = crVSplit
+    Align = alTop
+    ExplicitWidth = 163
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 156
+    Width = 687
+    Height = 181
+    Align = alTop
+    TabOrder = 1
+    object lv_khach_hang: TListView
+      Left = 1
+      Top = 1
+      Width = 685
+      Height = 179
+      Align = alClient
+      Checkboxes = True
+      Columns = <
+        item
+          Caption = 'M'#227
+        end
+        item
+          Caption = 'T'#234'n'
+          MinWidth = 2
+          Width = 150
+        end
+        item
+          Caption = 'Ng'#224'y sinh'
+          Width = 60
+        end
+        item
+          Caption = #272#7883'a ch'#7881
+          Width = 100
+        end
+        item
+          Caption = #272'i'#7879'n tho'#7841'i'
+          Width = 70
+        end
+        item
+          Caption = 'Th'#244'ng tin'
+          Width = 100
+        end
+        item
+          Caption = 'Ng'#224'y c'#7853'p nh'#7853't'
+          Width = 100
+        end
+        item
+          Caption = 'M'#7913'c'
+          Width = 40
+        end
+        item
+          Caption = 'Kh'#225'c'
+        end>
+      GridLines = True
+      ReadOnly = True
+      RowSelect = True
+      TabOrder = 0
+      ViewStyle = vsReport
+      OnColumnClick = lv_khach_hangColumnClick
+      OnCompare = lv_khach_hangCompare
+      OnMouseDown = lv_khach_hangMouseDown
+    end
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 687
+    Height = 153
+    Align = alTop
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 8
+      Top = 35
+      Width = 77
+      Height = 13
+      Caption = 'H'#7885' t'#234'n Ng'#244'i Sao'
+    end
+    object Label2: TLabel
+      Left = 159
+      Top = 35
+      Width = 49
+      Height = 13
+      Caption = #272'i'#7879'n tho'#7841'i'
+    end
+    object Label3: TLabel
+      Left = 287
+      Top = 35
+      Width = 32
+      Height = 13
+      Caption = #272#7883'a ch'#7881
+    end
+    object Label4: TLabel
+      Left = 475
+      Top = 90
+      Width = 20
+      Height = 13
+      Caption = 'M'#7913'c'
+    end
+    object lb_so_kh: TLabel
+      Left = 224
+      Top = 16
+      Width = 42
+      Height = 13
+      Caption = 'lb_so_kh'
+    end
+    object Label5: TLabel
+      Left = 321
+      Top = 90
+      Width = 44
+      Height = 13
+      Caption = 'C'#7853'p nh'#7853't'
+    end
+    object cbb_tim: TComboBox
+      Left = 8
+      Top = 6
+      Width = 145
+      Height = 21
+      TabOrder = 0
+      Text = 'T'#236'm ki'#7871'm'
+      OnChange = cbb_timChange
+      OnKeyPress = cbb_timKeyPress
+    end
+    object b_tim: TButton
+      Left = 159
+      Top = 4
+      Width = 49
+      Height = 25
+      Caption = 'T'#236'm'
+      TabOrder = 1
+      OnClick = b_timClick
+    end
+    object cbb_ten: TComboBox
+      Left = 8
+      Top = 54
+      Width = 145
+      Height = 21
+      TabOrder = 2
+    end
+    object cbb_sdt: TComboBox
+      Left = 159
+      Top = 54
+      Width = 122
+      Height = 21
+      TabOrder = 3
+      Text = 'cbb_sdt'
+    end
+    object cbb_dia_chi: TComboBox
+      Left = 287
+      Top = 54
+      Width = 226
+      Height = 21
+      TabOrder = 4
+      Text = 'cbb_dia_chi'
+    end
+    object m_thong_tin: TMemo
+      Left = 8
+      Top = 81
+      Width = 307
+      Height = 69
+      Lines.Strings = (
+        'm_thong_tin')
+      ScrollBars = ssVertical
+      TabOrder = 5
+    end
+    object cbb_muc: TComboBox
+      Left = 475
+      Top = 109
+      Width = 54
+      Height = 21
+      TabOrder = 6
+      Text = 'cbb_muc'
+    end
+    object m_khac: TMemo
+      Left = 535
+      Top = 1
+      Width = 151
+      Height = 151
+      Align = alRight
+      Lines.Strings = (
+        'm_khac')
+      ScrollBars = ssVertical
+      TabOrder = 7
+    end
+    object Panel3: TPanel
+      Left = 287
+      Top = 4
+      Width = 202
+      Height = 25
+      TabOrder = 8
+      object b_xoa: TButton
+        Left = 0
+        Top = 0
+        Width = 49
+        Height = 25
+        Caption = 'X'#243'a'
+        TabOrder = 0
+      end
+      object b_sua: TButton
+        Left = 45
+        Top = 0
+        Width = 50
+        Height = 25
+        Caption = 'S'#7917'a'
+        TabOrder = 1
+        OnClick = b_suaClick
+      end
+      object b_them: TButton
+        Left = 93
+        Top = 0
+        Width = 44
+        Height = 25
+        Caption = 'Th'#234'm'
+        TabOrder = 2
+        OnClick = b_themClick
+      end
+      object b_xoa_muc: TButton
+        Left = 143
+        Top = 0
+        Width = 58
+        Height = 25
+        Caption = 'X'#243'a m'#7909'c'
+        TabOrder = 3
+        OnClick = b_xoa_mucClick
+      end
+    end
+    object ttp_ngay_sinh: TDateTimePicker
+      Left = 371
+      Top = 81
+      Width = 98
+      Height = 22
+      Date = 42033.000000000000000000
+      Time = 42033.000000000000000000
+      TabOrder = 9
+    end
+    object cbb_ngay_sinh: TComboBox
+      Left = 371
+      Top = 109
+      Width = 98
+      Height = 21
+      TabOrder = 10
+      Text = 'cbb_ngay_sinh'
+    end
+  end
+  object sttb1: TStatusBar
+    Left = 0
+    Top = 500
+    Width = 687
+    Height = 19
+    Panels = <
+      item
+        Width = 200
+      end
+      item
+        Width = 50
+      end>
+  end
+  object Panel4: TPanel
+    Left = 0
+    Top = 340
+    Width = 687
+    Height = 160
+    Align = alClient
+    TabOrder = 3
+    object lv_ngoi_sao_tim: TListView
+      Left = 1
+      Top = 1
+      Width = 685
+      Height = 158
+      Align = alClient
+      Checkboxes = True
+      Columns = <
+        item
+          Caption = 'M'#227
+        end
+        item
+          Caption = 'T'#234'n'
+          MinWidth = 2
+          Width = 150
+        end
+        item
+          Caption = 'Ng'#224'y sinh'
+          Width = 60
+        end
+        item
+          Caption = #272#7883'a ch'#7881
+          Width = 100
+        end
+        item
+          Caption = #272'i'#7879'n tho'#7841'i'
+          Width = 70
+        end
+        item
+          Caption = 'Th'#244'ng tin'
+          Width = 100
+        end
+        item
+          Caption = 'Ng'#224'y c'#7853'p nh'#7853't'
+          Width = 100
+        end
+        item
+          Caption = 'M'#7913'c'
+          Width = 40
+        end
+        item
+          Caption = 'Kh'#225'c'
+        end
+        item
+          Caption = 'T'#7927' l'#7879
+        end>
+      GridLines = True
+      ReadOnly = True
+      RowSelect = True
+      TabOrder = 0
+      ViewStyle = vsReport
+      OnColumnClick = lv_khach_hangColumnClick
+      OnCompare = lv_khach_hangCompare
+      OnMouseDown = lv_khach_hangMouseDown
+    end
+  end
+  object tm1: TTimer
+    Enabled = False
+    Interval = 2000
+    OnTimer = tm1Timer
+    Left = 648
+    Top = 8
+  end
+end

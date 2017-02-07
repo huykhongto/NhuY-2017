@@ -1,0 +1,1053 @@
+﻿unit f_in_hoa_don_ban_hang_f;
+
+interface
+
+uses
+	Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+	StdCtrls, ExtCtrls, Jpeg, Printers, ComCtrls, Vcl.Imaging.pngimage,LDNam_sys
+	,LDNam_xu_ly_du_lieu,f_dl_f, Vcl.Menus,LDNam_xu_ly_anh,in_hoa_don,
+	System.UITypes,LDNam_dl;
+
+type
+  Tf_in_hoa_don_ban_hang = class(TForm)
+    Button3: TButton;
+    PrinterSetupDialog1: TPrinterSetupDialog;
+    m_cam_on: TMemo;
+    cbb_kt_f: TComboBox;
+    PrintDialog1: TPrintDialog;
+    Panel2: TPanel;
+    cbb_ten: TComboBox;
+    cbb_dia_chi: TComboBox;
+    cbb_dien_thoai: TComboBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    lv_kh: TListView;
+    b_tim: TButton;
+    cb_tim_nang_cao: TCheckBox;
+    Panel3: TPanel;
+    Panel5: TPanel;
+    Splitter1: TSplitter;
+    Panel6: TPanel;
+    lv_thau_kinh_tim: TListView;
+    Splitter2: TSplitter;
+    Panel7: TPanel;
+    lv_danh_sach_thau_kinh: TListView;
+    Panel8: TPanel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    cbb_ten_thau_kinh: TComboBox;
+    cbb_don_vi_tinh: TComboBox;
+    cbb_so_luong: TComboBox;
+    b_tim_thau_kinh: TButton;
+    cbb_don_gia: TComboBox;
+    Label7: TLabel;
+    b_them: TButton;
+    cbb_cu: TComboBox;
+    ppm1: TPopupMenu;
+    Xa1: TMenuItem;
+    Button1: TButton;
+    dtp_ngay_xuat: TDateTimePicker;
+		procedure Button3Click(Sender: TObject);
+    procedure Button6Click(Sender: TObject);
+		procedure Button8Click(Sender: TObject);
+    procedure Button9Click(Sender: TObject);
+		procedure ve_khung(x0,y0,x1,y1:integer);
+		procedure ve_gach_duoi(x0,y0,x1:integer);
+		procedure in_khung_chu(x0,y0:integer;tua_de:string;memo:tmemo);
+    procedure b_timClick(Sender: TObject);
+    procedure cbb_tenChange(Sender: TObject);
+    procedure cbb_dia_chiChange(Sender: TObject);
+		procedure cbb_dien_thoaiChange(Sender: TObject);
+		procedure giai_ma_dl(vi_tri:integer);
+    procedure cbb_tenKeyPress(Sender: TObject; var Key: Char);
+    procedure lv_khMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure lv_khColumnClick(Sender: TObject; Column: TListColumn);
+		procedure lv_khCompare(Sender: TObject; Item1, Item2: TListItem;
+      Data: Integer; var Compare: Integer);
+		procedure in_logo;
+		procedure FormCreate(Sender: TObject);
+    procedure b_tim_thau_kinhClick(Sender: TObject);
+    procedure cbb_ten_thau_kinhChange(Sender: TObject);
+    procedure cbb_ten_thau_kinhKeyPress(Sender: TObject; var Key: Char);
+    procedure lv_danh_sach_thau_kinhMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure lv_thau_kinh_timMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure cbb_don_giaKeyPress(Sender: TObject; var Key: Char);
+    procedure cbb_don_giaKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+		procedure b_themClick(Sender: TObject);
+		procedure Xa1Click(Sender: TObject);
+		procedure doc_thong_so1;
+		procedure luu_thong_so;
+		procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Button1Click(Sender: TObject);
+		
+
+	private
+		{ Private declarations }
+		sap_xep_tang: boolean;
+		cot_sap_xep: integer;
+  public
+		{ Public declarations }
+		
+  end;
+
+var
+	f_in_hoa_don_ban_hang: Tf_in_hoa_don_ban_hang;
+	da_tim:boolean;
+	vi_tri_xem:integer;
+	vi_tri_xem_tk:integer;
+	tu_vua_tim:string;
+	dong_dl:string;
+	so_tu_tim_thay:integer;
+	ty_le:integer;
+	li_tam: TListItem;
+	ten:string;
+	dong,nghia_tu,tu_tra:string;
+	vi_tri,vi_tri_dau,vi_tri_cuoi:integer;
+	co_tu :bool;
+	i:integer;
+	tu_don:string; // tung tu don
+	ListItem: TListItem;
+	p:integer;
+	cao_ma:integer;
+	rong_ma:integer;
+	mi1:TPrinter; 
+	da_tim_tk:bool;
+	so_cot_dl:integer;
+	ma_hoa_don:string;
+	
+			procedure ve_khung_mi(Var mi:Tprinter;x0,y0,x1,y1:integer);
+		procedure ve_gach_duoi_mi(Var mi:Tprinter;x0,y0,x1:integer);
+		procedure ve_duong_ngan_mi(Var mi:Tprinter;x0,y0,x1:integer);
+		procedure in_khung_chu_mi(var mi:TPrinter;x0,y0:integer;tua_de:string;memo:tmemo);
+const 
+	may_in_mac_dinh = 'Foxit Reader PDF Printer';
+	tien_max = '99,999,999,999';
+	
+
+implementation
+
+
+{$R *.DFM}
+uses f_quan_ly_ngoi_sao_f, f_xem_truoc_in_f,f_quan_ly_thau_kinh_f;
+
+
+
+procedure Tf_in_hoa_don_ban_hang.doc_thong_so1;
+var 
+	i:integer;
+	lb_ts:TListBox;
+	function tach_b(c:string) :boolean;
+	begin
+		Result:=sai;
+		if c='d' then
+			Result:=dung;
+	end;
+	function tach_s(c:string) :integer;
+	begin
+		Result:=0;
+		if c<>'' then
+			Result:=StrToInt(c);
+	end;
+	function tach_s_md(c:string;md:integer) :integer;
+	begin
+		Result:=md;
+		if c<>'' then
+			Result:=StrToInt(c);
+	end;
+	function tach_c_md(c:string;md:string) :string;
+	begin
+		Result:=md;
+		if c<>'' then
+			Result:=c;
+	end;
+	
+const so_dl=13;
+begin
+	lb_ts:=TListBox.Create(Self);
+	lb_ts.Visible:=false;
+	lb_ts.Parent := Self;
+	doc_thong_so(lb_ts,f_dl.lb_hoa_don);
+	i:=1;
+	f_in_hoa_don_ban_hang.Left:=tach_s(lb_ts.Items[i]);
+	inc(i);
+	f_in_hoa_don_ban_hang.top:=tach_s(lb_ts.Items[i]);
+	inc(i);
+	ma_hoa_don:=tach_c_md(lb_ts.Items[i],'HD000000');
+	lb_ts.Free;
+end;
+//======================================== 
+procedure Tf_in_hoa_don_ban_hang.luu_thong_so;
+var
+	dong:string;
+	procedure them_c(ts:string);
+	begin
+		dong:=dong+ts+phan_cot;
+	end;
+	procedure them_s(s:integer);
+	begin
+		them_c(IntToStr(s));
+	end;
+	procedure them_b(b:boolean);
+	Var
+		b_c: string;
+	begin
+		b_c:='s';
+		if b=dung then
+			b_c:='d';
+		them_c(b_c);
+	end;
+begin
+	dong:=phien_ban_du_lieu+phan_cot;
+	them_s(f_in_hoa_don_ban_hang.Left); // 1
+	them_s(f_in_hoa_don_ban_hang.Top); // 2
+	them_c(ma_hoa_don); // 3
+//	for i := 0 to so_cot_dl do
+//	begin
+//		them_s(lv_thau_kinh.Columns[i].Width);
+//	end;
+//	for i := 0 to so_cot_dl+1 do
+//	begin
+//		them_s(lv_thau_kinh_tim.Columns[i].Width);
+//	end;
+//	them_s(Splitter2.Top);
+//	them_s(Splitter1.Top);
+//	them_cot_lb(f_dl.lb_thau_kinh);
+	//them_s(so_cot_dl);
+	f_dl.lb_hoa_don.Items[0]:=dong;
+	f_dl.lb_hoa_don_luu;
+	//them_c('1111');
+end;
+
+
+
+procedure Tf_in_hoa_don_ban_hang.b_themClick(Sender: TObject);
+var
+	li:TListItem;
+begin
+	li := lv_danh_sach_thau_kinh.Items.Add;
+	with li do
+	begin
+		Caption := '0';
+//		for j := 1 to so_cot do
+//		begin
+			SubItems.Add(cbb_ten_thau_kinh.text);
+			SubItems.Add(cbb_don_vi_tinh.text);
+			SubItems.Add(cbb_so_luong.text);
+			SubItems.Add(cbb_don_gia.text);
+//		end;
+		Checked := false;
+	end;
+end;
+
+procedure Tf_in_hoa_don_ban_hang.b_timClick(Sender: TObject);
+var k:integer;
+begin
+	if da_tim=False then
+	begin
+		da_tim:=true;
+		vi_tri_xem:=0;
+		lv_kh.Clear;
+		tu_vua_tim:=cbb_ten.Text;
+		tu_tra:= tu_vua_tim;
+		//sed_nghia.Lines.Clear;
+		if cb_tim_nang_cao.Checked=false then
+		begin
+			for k:=1 to dl_ngoi_sao.sl_dl.Count-1 do  // tìm kiếm toàn bộ từ
+			begin
+				tu_tra:=bo_dau(tu_tra);
+				tu_tra:= LowerCase(tu_tra);
+				nghia_tu:=dl_ngoi_sao.sl_dl[k];
+				nghia_tu:=bo_dau(nghia_tu);
+				nghia_tu:=LowerCase(nghia_tu);
+				p:=AnsiPos(tu_tra,nghia_tu); // tim tu trong dong
+				if p>0 then
+				begin
+					giai_ma_dl(k);
+				end;
+			end;
+			so_tu_tim_thay:=lv_kh.Items.Count;
+			//l_tim_thay.Caption:='Tìm thấy:'+IntToStr(so_tu_tim_thay)+' mục';
+		end
+		else
+		begin  // tim kiếm tưng từ.co trong chuoi tim
+			for k:=1 to dl_ngoi_sao.sl_dl.Count-1 do  // tìm kiếm toàn bộ từ
+			begin
+				nghia_tu:=dl_ngoi_sao.sl_dl[k];
+//				nghia_tu:=bo_dau(nghia_tu);
+//				nghia_tu:=LowerCase(nghia_tu);
+				ty_le:=tim_tung_tu_kttt(tu_tra,nghia_tu);
+				if ty_le>0 then
+				begin
+					giai_ma_dl(k);
+				end;
+			end;
+			//(Sender as TCustomListView).CustomSort(@Sap_xep_so_lv,column.index)
+			//(Sender as TCustomListView).6(@Sap_xep_so_lv,column.index;
+			lv_kh.CustomSort(@Sap_xep_so_lv,-4);
+			so_tu_tim_thay:=lv_kh.Items.Count;
+			//l_tim_thay.Caption:='Tìm thấy:'+IntToStr(so_tu_tim_thay)+' mục';
+    end; 
+	end;
+	if so_tu_tim_thay>0 then
+	begin
+		ListItem := lv_kh.Items[vi_tri_xem];
+		ten:=ListItem.Caption;
+		cbb_dia_chi.Text:=ListItem.SubItems.Strings[0];
+		cbb_dien_thoai.Text:=ListItem.SubItems.Strings[1];
+		dong:=copy(dong,vi_tri_dau,vi_tri_cuoi-vi_tri_dau);
+		cbb_ten.Text:=ten;
+		vi_tri_xem:=vi_tri_xem+1;
+		if vi_tri_xem>=so_tu_tim_thay then vi_tri_xem:=0;
+		//m_to.Clear;
+		//m_to.Lines.Add(ten);
+		//m_to.Lines.Add(cbb_dia_chi.Text);
+		//m_to.Lines.Add('Tel: '+cbb_dien_thoai.Text);
+	end;
+end;
+
+
+procedure Tf_in_hoa_don_ban_hang.b_tim_thau_kinhClick(Sender: TObject);
+var
+	lb:TListBox;
+begin
+	if da_tim_tk=False then
+	begin
+		da_tim_tk:=true;
+		vi_tri_xem_tk:=0;
+		lv_thau_kinh_tim.Clear;
+		lb:=TListBox.Create(Self);
+		lb.Visible:=false;
+		//lb.Sorted:=True;
+		lb.Parent := Self;
+		tim_kiem_lb(cbb_ten_thau_kinh.Text,f_dl.lb_thau_kinh,lb);
+		lb_lv(lb,lv_thau_kinh_tim);
+		lv_thau_kinh_tim.CustomSort(@Sap_xep_so_lv,-11);
+		lb.Free;
+	end;
+	if lv_thau_kinh_tim.Items.Count>0 then
+	begin
+		ListItem := lv_thau_kinh_tim.Items[vi_tri_xem_tk];
+		cbb_ten_thau_kinh.text:=ListItem.SubItems.Strings[0];
+		cbb_don_gia.Text:= ListItem.SubItems.Strings[6];
+		cbb_don_vi_tinh.text:=ListItem.SubItems.Strings[9];
+		//cbb_so_luong.Text:=ListItem.SubItems.Strings[0];
+		//cbb_dien_thoai.Text:=ListItem.SubItems.Strings[1];
+		//dong:=copy(dong,vi_tri_dau,vi_tri_cuoi-vi_tri_dau);
+		//cbb_ten.Text:=ten;
+		vi_tri_xem:=vi_tri_xem+1;
+		if vi_tri_xem>=lv_thau_kinh_tim.Items.Count then vi_tri_xem:=0;
+//		m_to.Clear;
+//		m_to.Lines.Add(ten);
+//		m_to.Lines.Add(cbb_dia_chi.Text);
+//		m_to.Lines.Add('Tel: '+cbb_dien_thoai.Text);
+	end;
+end;
+
+//procedure Tf_in_hoa_don_ban_hang.Button1Click(Sender: TObject);
+//var
+//	ScaleX, ScaleY: Integer;
+//	RR: TRect;
+//begin
+//	with Printer do
+//	begin
+//		BeginDoc;
+//		// Mit BeginDoc wird ein Druckauftrag initiiert.
+//		// The StartDoc function starts a print job.
+//		try
+//			ScaleX := GetDeviceCaps(Handle, logPixelsX) div PixelsPerInch;
+//			ScaleY := GetDeviceCaps(Handle, logPixelsY) div PixelsPerInch;
+//			// Informationen über die Auflösung
+//			// Retrieves information about the Pixels per Inch of the Printer.
+//			RR := Rect(0, 0, Image1.picture.Width * scaleX, Image1.Picture.Height * ScaleY);
+//			Canvas.StretchDraw(RR, Image1.Picture.Graphic);
+//			// An die Auflösung anpassen
+//			// Stretch to fit
+//
+//		finally
+//			EndDoc;   //Methode EndDoc beendet den aktuellen Druckauftrag und schließt die
+//			// Textdatei-Variable.
+//			// Steht in finally - um auch bei Abbruch des Druckauftrages Papierausgabe
+//			// sicherzustellen
+//		end;
+//	end;
+//end;
+
+
+{2.}
+{************************************************************************}
+
+// Based on posting to borland.public.delphi.winapi by Rodney E Geraghty, 8/8/97.
+
+
+procedure PrintBitmap(Canvas: TCanvas; DestRect: TRect; Bitmap: TBitmap);
+var
+  BitmapHeader: pBitmapInfo;
+  BitmapImage: Pointer;
+  HeaderSize: DWORD;
+  ImageSize: DWORD;
+begin
+  GetDIBSizes(Bitmap.Handle, HeaderSize, ImageSize);
+  GetMem(BitmapHeader, HeaderSize);
+  GetMem(BitmapImage, ImageSize);
+  try
+    GetDIB(Bitmap.Handle, Bitmap.Palette, BitmapHeader^, BitmapImage^);
+    StretchDIBits(Canvas.Handle,
+      DestRect.Left, DestRect.Top,    // Destination Origin
+      DestRect.Right - DestRect.Left, // Destination Width
+      DestRect.Bottom - DestRect.Top, // Destination Height
+      0, 0,                           // Source Origin
+      Bitmap.Width, Bitmap.Height,    // Source Width & Height
+      BitmapImage,
+      TBitmapInfo(BitmapHeader^),
+      DIB_RGB_COLORS,
+      SRCCOPY)
+  finally
+    FreeMem(BitmapHeader);
+    FreeMem(BitmapImage)
+  end
+end {PrintBitmap};
+
+
+{3.}
+{************************************************************************}
+// from www.experts-exchange.com
+//======================================== 
+
+procedure DrawImage(Canvas: TCanvas; DestRect: TRect; ABitmap: TBitmap);
+var
+  Header, Bits: Pointer;
+  HeaderSize: DWORD;
+  BitsSize: DWORD;
+begin
+  GetDIBSizes(ABitmap.Handle, HeaderSize, BitsSize);
+  Header := AllocMem(HeaderSize);
+  Bits := AllocMem(BitsSize);
+  try
+    GetDIB(ABitmap.Handle, ABitmap.Palette, Header^, Bits^);
+    StretchDIBits(Canvas.Handle, DestRect.Left, DestRect.Top,
+      DestRect.Right, DestRect.Bottom,
+      0, 0, ABitmap.Width, ABitmap.Height, Bits, TBitmapInfo(Header^),
+      DIB_RGB_COLORS, SRCCOPY);
+  finally
+    FreeMem(Header, HeaderSize);
+    FreeMem(Bits, BitsSize);
+  end;
+end;
+
+procedure PrintImage(var Image: TImage; ZoomPercent: Integer);
+  // if ZoomPercent=100, Image will be printed across the whole page
+var 
+  relHeight, relWidth: integer;
+begin
+  Screen.Cursor := crHourglass;
+  Printer.BeginDoc;
+	with Image.Picture.Bitmap do 
+  begin
+		if ((Image.Width div Image.Height) > (Printer.PageWidth div Printer.PageHeight)) then
+    begin
+      // Stretch Bitmap to width of PrinterPage
+      relWidth := Printer.PageWidth;
+      relHeight := MulDiv(Height, Printer.PageWidth, Width);
+    end 
+    else
+    begin
+      // Stretch Bitmap to height of PrinterPage
+      relWidth  := MulDiv(Width, Printer.PageHeight, Height);
+      relHeight := Printer.PageHeight;
+    end;
+    relWidth := Round(relWidth * ZoomPercent / 100);
+    relHeight := Round(relHeight * ZoomPercent / 100);
+		DrawImage(Printer.Canvas, Rect(0, 0, relWidth, relHeight), Image.Picture.Bitmap);
+  end;
+  Printer.EndDoc;
+  Screen.cursor := crDefault;
+end;
+// Example Call:
+//======================================== 
+procedure Tf_in_hoa_don_ban_hang.in_logo;
+	var
+  i, iRow, iCol,        // Counter
+  iBorderSize,          // Ident from left/top borders
+  iImgDistance,         // Ident between images in grid
+  iRows,                // Rows Count
+  iColumns,             // Colun count
+  iLeft, iTop: Integer; // For calc
+	bmp: TBitmap;
+  Img1: TImage;
+  scale: Double;
+
+  function CalcY: Integer;
+  begin
+    if (iRow = 1) then
+      Result := iBorderSize
+    else
+      Result := iBorderSize + (iImgDistance * (iRow - 1)) +
+        (bmp.Height * (iRow - 1));
+  end;
+
+  function CalcX: Integer;
+  begin
+    if (iCol = 1) then
+      Result := iBorderSize
+    else
+      Result := iBorderSize + (iImgDistance * (iCol - 1)) +
+        (bmp.Width * (iCol - 1));
+  end;
+
+begin
+  iBorderSize := 10;//StrToInt(BorderSizeEdit.Text);
+	iImgDistance := 10;//StrToInt(ImgsDistanceEdit.Text);
+	iRows := 10;//StrToInt(RowsCountEdit.Text);
+	iColumns := 10;//StrToInt(ColCountEdit.Text);
+  iRow := 1;
+	iCol := 1;
+
+  if Printer.Orientation = poPortrait then
+    scale := GetDeviceCaps(Printer.Handle, LOGPIXELSX) /
+      Screen.PixelsPerInch
+  else
+    scale := GetDeviceCaps(Printer.Handle, LOGPIXELSY) /
+      Screen.PixelsPerInch;
+
+  bmp := TBitmap.Create;
+  Img1 := TImage.Create(nil);
+  Img1.Height := Trunc(Printer.PageHeight / scale); //Calc canvas size
+  Img1.Width := Trunc(Printer.PageWidth / scale); //Calc canvas size
+  Img1.Canvas.Brush.Color := clWhite;
+  Img1.Canvas.FillRect(Rect(0, 0, Img1.Width, Img1.Height));
+  try
+    bmp.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'Source.bmp');
+    for i := 1 to 18 do
+    begin
+      if (iRow <= iRows) then
+      begin
+        iTop := CalcY;
+        iLeft := CalcX;
+        Img1.Canvas.Draw(iLeft, iTop, bmp);
+        if not((iRow = iRows) and (iCol = iColumns)) then
+        begin
+          if (iCol = iColumns) then
+          begin
+            Inc(iRow);
+            iCol := 1;
+          end
+          else
+            Inc(iCol);
+        end
+        else
+				begin
+					PrintImage(Img1, 100);
+          iRow := 1;
+          iCol := 1;
+          Img1.Canvas.Brush.Color := clWhite;
+          Img1.Canvas.FillRect(Rect(0, 0, Img1.Width, Img1.Height));
+        end;
+      end;
+    end;
+  finally
+    FreeAndNil(bmp);
+    FreeAndNil(Img1);
+  end;
+end;
+procedure Tf_in_hoa_don_ban_hang.lv_danh_sach_thau_kinhMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+	ListItem: TListItem;
+	muc:string;
+begin
+	if lv_kh.itemindex <> -1 then
+	begin
+		ListItem := lv_kh.Items[lv_kh.ItemIndex];
+		with ListItem do
+	begin
+		cbb_ten.Text:=Caption;
+		cbb_dia_chi.Text := SubItems.Strings[0];
+		cbb_dien_thoai.Text := SubItems.Strings[1];
+		muc := SubItems.Strings[2];
+	end;
+//		m_to.Clear;
+//		m_to.Lines.Add(cbb_ten.text);
+//		m_to.Lines.Add(cbb_dia_chi.Text);
+//		m_to.Lines.Add('Tel: '+cbb_dien_thoai.Text);
+	end;
+end;
+
+//======================================== 
+function Tinh_rong_dong(var mi:TPrinter;dong:string): integer;
+begin
+	Result:=mi.Canvas.TextExtent(dong).cx;
+end;
+//======================================== 
+function Tinh_cao_dong(var mi:TPrinter;dong:string): integer;
+begin
+	Result:=mi.Canvas.TextExtent(dong).cy;
+end;
+
+//======================================== 
+procedure Tf_in_hoa_don_ban_hang.Button1Click(Sender: TObject);
+begin
+	f_xem_truoc_in.rong_trang := mi1.pagewidth; // 4700 
+	f_xem_truoc_in.cao_trang := mi1.pageheight;
+	f_xem_truoc_in.show;
+end;
+
+procedure Tf_in_hoa_don_ban_hang.Button3Click(Sender: TObject);
+var
+	x,y:longint;
+	c:string;
+	tg:string;
+
+	st :TStringlist;
+	procedure chuyen_doi(chuoi:string);
+	begin
+		c:=dinh_dang_so_c(chuoi);	
+		x:=Tinh_rong_dong(mi1,c);
+	end;
+const 
+	tl_anh = 7;
+	tl_le=20; // ty le le
+	tl_cach_dong=31;
+begin
+	mi1.SetPrinter(may_in_mac_dinh,'','',0);
+	mi1.orientation := poportrait; // Ban in nam doc
+	mi1.Title:='In HD';
+	
+	mi1.BeginDoc;
+	y:=thong_tin_cong_ty(mi1.Canvas,mi1.PageWidth);
+	y:=hoa_don(mi1.Canvas,mi1.PageWidth,y,'SỐ: HD00004');
+	st :=TStringlist.Create;
+	st.Add(f_in_hoa_don_ban_hang.cbb_ten.text);
+	st.Add(f_in_hoa_don_ban_hang.cbb_dia_chi.text);
+	st.Add(f_in_hoa_don_ban_hang.cbb_dien_thoai.text);
+	y:=thong_tin_ngoi_sao(mi1.Canvas,mi1.PageWidth,y,st);
+	y:=in_danh_sach(mi1.Canvas,mi1.PageWidth,y,f_in_hoa_don_ban_hang.lv_danh_sach_thau_kinh);
+
+		//---------------------------------------- 
+	st.Clear;
+	chuyen_doi(inttostr(tong_cong));
+	st.Add(c);
+	chuyen_doi(f_in_hoa_don_ban_hang.cbb_cu.Text);
+	st.Add(c);
+	tong_cong:= tong_cong+StrToInt(f_in_hoa_don_ban_hang.cbb_cu.Text);
+	chuyen_doi(IntToStr(tong_cong));
+	st.Add(c);
+	st.Add(so_ra_chu(strtoint64(IntToStr(tong_cong)),sai,dung));
+	y:=in_tong_cong(mi1.Canvas,mi1.PageWidth,y,st);
+	DateTimeToString(tg,shortdateformat,dtp_ngay_xuat.DateTime);
+	y:=in_ngay_ky_ten(mi1.Canvas,mi1.PageWidth,y,'Ngày '+tg); 
+	mi1.Canvas.Font.Color:=clWebDarkOrange;	
+	in_loi_cam_on(mi1.Canvas,mi1.PageWidth,y,f_in_hoa_don_ban_hang.m_cam_on);
+	mi1.EndDoc;
+	st.free; 
+end;
+//======================================== 
+procedure in_khung_chu_mi(var mi:TPrinter;x0,y0:integer;tua_de:string;memo:tmemo);
+var
+	x,y,x_toi_da,i:integer;
+	dong_dai:integer;
+const rong_dong_ke=4;
+begin
+ //	mi.Canvas.Font:=memo.Font;
+//	mi.Canvas.Font.Size:=StrToInt(cbb_kt_f.Text);
+//	mi.Canvas.Font.Style:= [TFontStyle.fsBold];
+	x:=x0+50; // tọa độ của đầu ra văn bản
+	y:=y0+40;
+	mi.Canvas.TextOut(x,y,tua_de);
+	x:=x+mi.Canvas.TextExtent(tua_de).cx;
+	x_toi_da:=x;
+	//y:=y+Printer.Canvas.TextExtent('From: ').cy;
+ //	mi.Canvas.Font:=memo.Font;
+	//mi.Canvas.Font.Size:=StrToInt(cbb_kt_f.Text);
+	for i:=0 to memo.Lines.Count-1 do
+	begin                                    // TextExtent -  chiều cao dòng
+	 mi.Canvas.TextOut(x,y,memo.Lines[i]);
+	 dong_dai:=mi.Canvas.TextExtent(memo.Lines[i]).cx;
+	 y:=y+mi.Canvas.TextExtent(memo.Lines[i]).cy; // trên đường mòn. hàng
+	 ve_gach_duoi_mi(mi1,x,y,dong_dai);
+	 y:=y+4;
+		if x_toi_da<dong_dai+x then 
+			x_toi_da:=dong_dai+x;
+	end;
+	mi.Canvas.Pen.Width:=rong_dong_ke;
+	mi.Canvas.Pen.Color:=clRed;
+	rong_ma:=x_toi_da+50;
+	cao_ma:=y+40;
+	ve_khung_mi(mi1,x0,y0,rong_ma,cao_ma);
+	
+end;
+//======================================== 
+procedure Tf_in_hoa_don_ban_hang.in_khung_chu(x0,y0:integer;tua_de:string;memo:tmemo);
+var
+	x,y,x_toi_da,i:integer;
+	dong_dai:integer;
+const rong_dong_ke=4;
+begin
+	mi1.Canvas.Font:=memo.Font;
+	mi1.Canvas.Font.Size:=StrToInt(cbb_kt_f.Text);
+	mi1.Canvas.Font.Style:= [TFontStyle.fsBold];
+	x:=x0+50; // tọa độ của đầu ra văn bản
+	y:=y0+40;
+	mi1.Canvas.TextOut(x,y,tua_de);
+	x:=x+mi1.Canvas.TextExtent(tua_de).cx;
+	x_toi_da:=x;
+	//y:=y+Printer.Canvas.TextExtent('From: ').cy;
+	mi1.Canvas.Font:=memo.Font;
+	mi1.Canvas.Font.Size:=StrToInt(cbb_kt_f.Text);
+	for i:=0 to memo.Lines.Count-1 do
+	begin                                    // TextExtent -  chiều cao dòng
+	 mi1.Canvas.TextOut(x,y,memo.Lines[i]);
+	 dong_dai:=mi1.Canvas.TextExtent(memo.Lines[i]).cx;
+	 y:=y+mi1.Canvas.TextExtent(memo.Lines[i]).cy; // trên đường mòn. hàng
+	 ve_gach_duoi(x,y,dong_dai);
+	 y:=y+4;
+		if x_toi_da<dong_dai+x then 
+			x_toi_da:=dong_dai+x;
+	end;
+	mi1.Canvas.Pen.Width:=rong_dong_ke;
+	mi1.Canvas.Pen.Color:=clRed;
+	rong_ma:=x_toi_da+50;
+	cao_ma:=y+40;
+	ve_khung(x0,y0,rong_ma,cao_ma);
+	
+end;
+
+procedure Tf_in_hoa_don_ban_hang.lv_khColumnClick(Sender: TObject;
+  Column: TListColumn);
+begin
+	sap_xep_tang := not sap_xep_tang; // inversion du précédent ordre de tri
+	cot_sap_xep := Column.Index; // Quel colonne est à trier ?
+	// Ensuite on détermine quel est le type de colonne à trier:
+	// on peut aussi les déterminer en spécifiant un tag particulier dans chaque colonne
+	if (AnsiPos('Ngày thêm', Column.Caption) > 0) or
+		(AnsiPos('Ngày hoàn thành', Column.Caption) > 0) then
+	begin
+		if sap_xep_tang then
+			(Sender as TCustomListView).CustomSort(@Sap_xep_thoi_gian_lv,
+				Column.Index)
+		else
+			(Sender as TCustomListView).CustomSort(@Sap_xep_thoi_gian_lv,
+				-Column.Index)
+	end
+	else if (AnsiPos('Dự tính', Column.Caption) > 0) then
+	begin
+		if sap_xep_tang then
+			(Sender as TCustomListView).CustomSort(@Sap_xep_ngay_thang_lv,
+				Column.Index)
+		else
+			(Sender as TCustomListView).CustomSort(@Sap_xep_ngay_thang_lv,
+				-Column.Index)
+	end
+	else if AnsiPos('Quan trọng', Column.Caption) > 0 then
+	begin
+		if sap_xep_tang then
+			(Sender as TCustomListView).CustomSort(@Sap_xep_so_lv, Column.Index)
+		else
+			(Sender as TCustomListView).CustomSort(@Sap_xep_so_lv, -Column.Index)
+	end
+	else
+		(Sender as TCustomListView).AlphaSort;
+	//f_dl.lb_ngoi_sao_luu_lv(lv_khach_hang,7);
+end;
+
+procedure Tf_in_hoa_don_ban_hang.lv_khCompare(Sender: TObject; Item1,
+  Item2: TListItem; Data: Integer; var Compare: Integer);
+var
+	ix: integer;
+begin
+	if sap_xep_tang then
+		if cot_sap_xep = 0 then
+			Compare := CompareText(Item1.Caption, Item2.Caption)
+		else
+		begin
+			ix := cot_sap_xep - 1;
+			Compare := CompareText(Item1.SubItems[ix], Item2.SubItems[ix]);
+		end
+	else if cot_sap_xep = 0 then
+		Compare := CompareText(Item2.Caption, Item1.Caption)
+	else
+	begin
+		ix := cot_sap_xep - 1;
+		Compare := CompareText(Item2.SubItems[ix], Item1.SubItems[ix]);
+	end;
+end;
+
+procedure Tf_in_hoa_don_ban_hang.lv_khMouseDown(Sender: TObject;
+	Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+	ListItem: TListItem;
+	muc:string;
+begin
+	if lv_kh.itemindex <> -1 then
+	begin
+		ListItem := lv_kh.Items[lv_kh.ItemIndex];
+		with ListItem do
+	begin
+		cbb_ten.Text:=Caption;
+		cbb_dia_chi.Text := SubItems.Strings[0];
+		cbb_dien_thoai.Text := SubItems.Strings[1];
+		muc := SubItems.Strings[2];
+	end;
+//		m_to.Clear;
+//		m_to.Lines.Add(cbb_ten.text);
+//		m_to.Lines.Add(cbb_dia_chi.Text);
+//		m_to.Lines.Add('Tel: '+cbb_dien_thoai.Text);
+	end;
+end;
+
+procedure Tf_in_hoa_don_ban_hang.lv_thau_kinh_timMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+	ListItem: TListItem;
+begin
+	if lv_thau_kinh_tim.itemindex <> -1 then
+	begin
+		ListItem := lv_thau_kinh_tim.Items[lv_thau_kinh_tim.ItemIndex];
+		with ListItem do
+	begin
+		cbb_ten_thau_kinh.Text:=SubItems.Strings[0];
+		cbb_don_vi_tinh.Text := SubItems.Strings[9];
+		cbb_don_gia.Text := SubItems.Strings[6];
+//		muc := SubItems.Strings[2];
+	end;
+//		m_to.Clear;
+//		m_to.Lines.Add(cbb_ten.text);
+//		m_to.Lines.Add(cbb_dia_chi.Text);
+//		m_to.Lines.Add('Tel: '+cbb_dien_thoai.Text);
+	end;
+end;
+
+//======================================== 
+procedure Tf_in_hoa_don_ban_hang.ve_gach_duoi(x0,y0,x1:integer);
+begin
+	Printer.Canvas.Pen.Width:=2;
+	Printer.Canvas.Pen.Color:=clLime;
+	Printer.Canvas.MoveTo(x0,y0);
+	Printer.Canvas.LineTo(x0+x1,y0);
+end;
+//======================================== 
+//======================================== 
+procedure ve_gach_duoi_mi(Var mi:Tprinter;x0,y0,x1:integer);
+begin
+	mi.Canvas.Pen.Width:=2;
+	mi.Canvas.Pen.Color:=clLime;
+	mi.Canvas.MoveTo(x0,y0);
+	mi.Canvas.LineTo(x0+x1,y0);
+end;
+//======================================== 
+procedure ve_duong_ngan_mi(Var mi:Tprinter;x0,y0,x1:integer);
+begin
+	mi.Canvas.Pen.Width:=4;
+//	mi.Canvas.Pen.Color:=clLime;
+	mi.Canvas.MoveTo(x0,y0);
+	mi.Canvas.LineTo(x1,y0);
+end;
+procedure ve_khung_mi(Var mi:Tprinter;x0,y0,x1,y1:integer);
+begin
+	mi.Canvas.MoveTo(x0,y0);
+	mi.Canvas.LineTo(x0,y1);
+	mi.Canvas.LineTo(x1,y1);
+	mi.Canvas.LineTo(x1,y0);
+	mi.Canvas.LineTo(x0,y0);
+end;
+//======================================== 
+procedure Tf_in_hoa_don_ban_hang.ve_khung(x0,y0,x1,y1:integer);
+begin
+	Printer.Canvas.MoveTo(x0,y0);
+	Printer.Canvas.LineTo(x0,y1);
+	Printer.Canvas.LineTo(x1,y1);
+	Printer.Canvas.LineTo(x1,y0);
+	Printer.Canvas.LineTo(x0,y0);
+end;
+procedure Tf_in_hoa_don_ban_hang.Xa1Click(Sender: TObject);
+begin
+	if lv_danh_sach_thau_kinh.ItemIndex>=0 then
+	begin
+		if MessageDlg('Bạn có muốn xóa từ này!?', mtConfirmation, [mbYes, mbNo], 0) = idYes
+		then
+		begin
+			lv_danh_sach_thau_kinh.Items.Delete(lv_danh_sach_thau_kinh.itemindex);
+		end;
+	end;
+end;
+
+
+procedure Tf_in_hoa_don_ban_hang.Button6Click(Sender: TObject);
+var
+ logo:TBitMap;
+begin
+//загрузка логотипа
+ logo:=TBitMap.Create;
+ logo.LoadFromFile('LDN.bmp');  //логотип
+//начало вывода
+	Printer.SetPrinter(may_in_mac_dinh,'','',0);
+ Printer.Title:='In BP';
+ Printer.BeginDoc;
+//вывод логотипа
+ Printer.Canvas.Draw(100,100,logo);
+//вывод реквизитов
+ Printer.Canvas.Font.Name:='Courier';
+ Printer.Canvas.Font.Style:=[fsBold]+[fsItalic];
+ Printer.Canvas.Font.Size:=14;
+ Printer.Canvas.TextOut(Printer.PageWidth div 2,100,'ООО "Moidodyr"');
+ Printer.Canvas.Font.Style:=[];
+ Printer.Canvas.Font.Size:=10;
+ Printer.Canvas.TextOut(Printer.PageWidth div 2,150,'Спб, Хреновская ул., 34');
+ Printer.Canvas.Font.Size:=10;
+ Printer.Canvas.TextOut(Printer.PageWidth div 2,200,'Тел: 111-22-33, Факс: 444-55-66');
+//chia dòng đầu ra
+ Printer.Canvas.Pen.Style:=psDash;
+ Printer.Canvas.MoveTo(100,250);
+ Printer.Canvas.LineTo(Printer.PageWidth-100,250);
+//завершение вывода
+ Printer.EndDoc;
+//удаление экземпляра объекта TBitMap
+ logo.Free; 
+end;
+
+
+procedure Tf_in_hoa_don_ban_hang.Button8Click(Sender: TObject);
+begin
+ PrinterSetupDialog1.Execute;
+	//PrinterSetupDialog1.Execute()
+end;
+
+procedure Tf_in_hoa_don_ban_hang.Button9Click(Sender: TObject);
+var
+ i, start, stop: integer;
+begin
+ PrintDialog1.Options:=[poPageNums,poSelection];
+ PrintDialog1.FromPage:=1;
+ PrintDialog1.MinPage:=1;
+ if not PrintDialog1.Execute then Exit;
+ if PrintDialog1.PrintRange=prAllPages
+ then
+	begin
+	 Start:=PrintDialog1.MinPage-1;
+	 Stop:=PrintDialog1.MaxPage-1;
+	end
+ else // если выбрано отличное от 'Print All'
+	if PrintDialog1.PrintRange=prSelection
+	then
+	 begin
+	 end
+ else // если выбрано отличное от 'Выделенный фрагмент'
+	begin
+	 Start:=PrintDialog1.FromPage-1;
+	 Stop:=PrintDialog1.ToPage-1;
+	end;
+ // начало печати
+ Printer.BeginDoc;
+ for i:=start to stop do
+	begin
+	 if i<>stop
+	 then Printer.NewPage;
+	end;
+ Printer.EndDoc;  
+end;
+
+procedure Tf_in_hoa_don_ban_hang.cbb_dia_chiChange(Sender: TObject);
+begin
+	da_tim:=false;
+end;
+
+procedure Tf_in_hoa_don_ban_hang.cbb_dien_thoaiChange(Sender: TObject);
+begin
+	da_tim:=false;
+end;
+
+procedure Tf_in_hoa_don_ban_hang.cbb_don_giaKeyDown(Sender: TObject;
+	var Key: Word; Shift: TShiftState);
+begin
+	if Key=46 then // nhan Del
+	begin
+	//key := key;
+  end;
+end;
+
+procedure Tf_in_hoa_don_ban_hang.cbb_don_giaKeyPress(Sender: TObject;
+	var Key: Char);
+begin
+//	dinh_dang_so_cbb(cbb_don_gia,key);
+//	if Key<>#8 then
+//	begin
+//		c:=cbb_don_gia.text;
+//		dinh_dang_so(c,key);
+//		cbb_don_gia.text:=c;
+//		cbb_don_gia.SelStart := Length(cbb_don_gia.text);
+//		key := #0;
+//	end;
+end;
+
+procedure Tf_in_hoa_don_ban_hang.cbb_tenChange(Sender: TObject);
+begin
+	da_tim:=false;
+end;
+
+procedure Tf_in_hoa_don_ban_hang.cbb_tenKeyPress(Sender: TObject; var Key: Char);
+begin
+	if key=#13 then begin
+		b_tim.Click;
+		key:= #0;
+	end;
+end;
+
+procedure Tf_in_hoa_don_ban_hang.cbb_ten_thau_kinhChange(Sender: TObject);
+begin
+	da_tim_tk:=False;
+end;
+
+procedure Tf_in_hoa_don_ban_hang.cbb_ten_thau_kinhKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+		if key=#13 then begin
+		b_tim_thau_kinh.Click;
+		key:= #0;
+	end;
+end;
+
+procedure Tf_in_hoa_don_ban_hang.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+	luu_thong_so;
+end;
+
+procedure Tf_in_hoa_don_ban_hang.FormCreate(Sender: TObject);
+begin
+	mi1:= TPrinter.Create;
+	doc_thong_so1;
+end;
+//======================================== 
+procedure Tf_in_hoa_don_ban_hang.giai_ma_dl(vi_tri:integer);
+
+var
+	j: integer;
+	vi_tri_cuoi: integer;
+	ListItem: TListItem;
+	a: array [0..10] of string;
+begin
+	dong_dl:=dl_ngoi_sao.sl_dl[vi_tri];
+		for j := 0 to 8 do
+		begin
+			vi_tri_cuoi := AnsiPos(phan_cot, dong_dl);
+			a[j]:=copy(dong_dl, 1, vi_tri_cuoi-1);
+			dong_dl:=copy(dong_dl,vi_tri_cuoi+2,Length(dong_dl));
+		end;
+		ListItem := lv_kh.Items.Add;
+		with ListItem do
+		begin
+			Caption := a[1];
+			SubItems.Add(a[3]);
+			SubItems.Add(a[4]);
+			SubItems.Add(a[7]);
+			if cb_tim_nang_cao.Checked=true then SubItems.Add(IntToStr(ty_le))
+			else SubItems.Add('0');
+			SubItems.Add(IntToStr(vi_tri));
+		end;
+	end;
+end.

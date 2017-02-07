@@ -1,0 +1,233 @@
+object f_ldnam: Tf_ldnam
+  Left = 0
+  Top = 0
+  Caption = 'LDNam'
+  ClientHeight = 430
+  ClientWidth = 687
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Scaled = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Button1: TButton
+    Left = 8
+    Top = 8
+    Width = 75
+    Height = 25
+    Caption = 'M'#7909'c ti'#234'u'
+    TabOrder = 0
+    OnClick = tm1Timer
+  end
+  object m_mo_ta: TMemo
+    Left = 56
+    Top = 116
+    Width = 209
+    Height = 125
+    Lines.Strings = (
+      'M'#7909'c ti'#234'u:'
+      #9'Nguy'#7877'n Ng'#7885'c '
+      'Nh'#432' Qu'#7923'nh em l'#224' v'#7907' '
+      'c'#7911'a anh L'#234' '#272#259'ng Nam'
+      'R'#245' r'#224'ng:'
+      #9'Em l'#224' m'#7897't '
+      'ng'#432#7901'i v'#7907' tuy'#7879'n v'#7901'i'
+      #9'Em lu'#244'n l'#224' '
+      'ng'#432#7901'i '#226'n c'#7847'n v'#224' chu '
+      #273#225'o'
+      #9'Em lu'#244'n lu'#244'n '
+      #273#7897'ng vi'#234'n '#7911'ng h'#7897' anh'
+      #9'Em m'#227'i m'#227'i '
+      'y'#234'u anh b'#7857'ng t'#7845'm ch'#226'n '
+      'th'#224'nh'
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      #9'Anh y'#234'u em '
+      'v'#7899'i t'#7845't c'#7843' t'#236'nh y'#234'u '
+      'th'#432#417'ng v'#224' s'#7921' hi'#7875'u bi'#7871't '
+      'c'#7911'a m'#236'nh'
+      #9'Anh lu'#244'n l'#7855'ng '
+      'nghe v'#224' chia s'#7869' c'#249'ng '
+      'em nh'#7919'ng ni'#7873'm vui v'#224' '
+      'm'#7885'i th'#7913
+      #9'M'#227'i m'#227'i y'#234'u '
+      'em v'#7907' c'#7911'a anh'
+      'C'#7843'm x'#250'c:'
+      #9'Anh lu'#244'n lu'#244'n '
+      'th'#7845'y tr'#224'n '#273#7847'y '#273#7897'ng l'#7921'c '
+      'khi em l'#224' v'#7907' anh'
+      #9'Anh r'#7845't vui, '
+      'r'#7845't h'#7841'nh ph'#250'c'
+      #9'Tr'#225'i tim anh '
+      'lu'#244'n r'#7897'n r'#224'ng'
+      #9'Nh'#7919'ng l'#250'c '
+      'kh'#244'ng vui ngh'#297' '#273#7871'n em '
+      'anh ph'#7845'n ch'#7845'n h'#7859'n l'#234'n'
+      #9'Anh nh'#7899' em'
+      #9'Em l'#224' v'#7907' c'#7911'a '
+      'anh')
+    ScrollBars = ssVertical
+    TabOrder = 1
+  end
+  object Panel1: TPanel
+    Left = 8
+    Top = 237
+    Width = 657
+    Height = 185
+    TabOrder = 2
+    object lv_thong_diep: TListView
+      Left = 1
+      Top = 1
+      Width = 655
+      Height = 183
+      Align = alClient
+      Checkboxes = True
+      Columns = <
+        item
+          Caption = 'T'#234'n'
+          MinWidth = 2
+          Width = 150
+        end
+        item
+          Caption = 'M'#244' t'#7843
+          MinWidth = 2
+          Width = 150
+        end
+        item
+          Alignment = taRightJustify
+          Caption = 'Quan tr'#7885'ng'
+          MaxWidth = 68
+          MinWidth = 2
+          Width = 30
+        end
+        item
+          Caption = 'Th'#7901'i gian'
+          MaxWidth = 65
+          MinWidth = 2
+          Width = 65
+        end
+        item
+          Caption = 'Th'#7921'c thi'
+          MaxWidth = 130
+          MinWidth = 2
+          Width = 130
+        end
+        item
+          Caption = 'Ng'#224'y ho'#224'n th'#224'nh'
+          MinWidth = 2
+        end
+        item
+          Caption = 'Ho'#224'n th'#224'nh'
+          MaxWidth = 69
+          MinWidth = 2
+          Width = 20
+        end
+        item
+          Caption = 'Th'#432' m'#7909'c'
+          MinWidth = 2
+          Width = 170
+        end>
+      GridLines = True
+      ReadOnly = True
+      RowSelect = True
+      TabOrder = 0
+      ViewStyle = vsReport
+    end
+  end
+  object lb_dl_cong_viec: TListBox
+    Left = 450
+    Top = 176
+    Width = 70
+    Height = 39
+    ItemHeight = 13
+    TabOrder = 3
+    Visible = False
+  end
+  object ScrollBox1: TScrollBox
+    Left = 542
+    Top = 8
+    Width = 137
+    Height = 102
+    TabOrder = 4
+    object i_anh_vao: TImage
+      Left = 2
+      Top = 2
+      Width = 87
+      Height = 79
+      Margins.Left = 2
+      Margins.Top = 2
+      Margins.Right = 2
+      Margins.Bottom = 2
+      AutoSize = True
+      Stretch = True
+    end
+  end
+  object Button2: TButton
+    Left = 89
+    Top = 8
+    Width = 75
+    Height = 25
+    Caption = 'Button2'
+    TabOrder = 5
+    OnClick = Button2Click
+  end
+  object ScrollBox2: TScrollBox
+    Left = 542
+    Top = 116
+    Width = 133
+    Height = 102
+    TabOrder = 6
+    object i_mau: TImage
+      Left = 3
+      Top = 3
+      Width = 84
+      Height = 79
+    end
+  end
+  object mp_1: TMediaPlayer
+    Left = 476
+    Top = 61
+    Width = 29
+    Height = 30
+    VisibleButtons = [btPlay]
+    AutoEnable = False
+    DoubleBuffered = True
+    Visible = False
+    ParentDoubleBuffered = False
+    TabOrder = 7
+  end
+  object tm1: TTimer
+    Enabled = False
+    OnTimer = tm1Timer
+    Left = 504
+    Top = 8
+  end
+  object SQLDataSet1: TSQLDataSet
+    DataSource = DataSource1
+    Params = <>
+    Left = 208
+    Top = 56
+  end
+  object DataSource1: TDataSource
+    DataSet = ClientDataSet1
+    Left = 296
+    Top = 64
+  end
+  object ClientDataSet1: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 376
+    Top = 48
+  end
+end

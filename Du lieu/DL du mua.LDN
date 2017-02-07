@@ -1,0 +1,86 @@
+﻿Cảm biến ẩm SHT10
+7805 thường x 50
+ss34 X 50
+Cuộn cảm 3A x 30
+lm2576-5 X 20
+lm2576-5 dán x 10
+lm2576 adj x 10
+LED 7 doạn 65X86 X 10 
+Kềm cắt X 2
+Relay lơn 8 chân X 50
+Bus 5 X 2
+Cảm biến tiệm cận Quang X 8
+IRF9540 X 10
+IRF540 X 10
+Remote 4 nút X 5
+
+Tụ 100u/16 X 200
+Đá mài 
+
+
+
+
+DS18b20 dây tốt X2
+Mica 2mm den x 1
+Trắng 3mm x 1
+Trong 3mm X 1
+Trong 2mm x 1
+
+
+
+
+
+
+Sim Tomato
+Cảm biến tiệm cận từ NPN
+Terminal 4 L nhỏ
+Terminal 3 L nhỏ
+Terminal 2 L nhỏ
+Tay hàn x 2
+Mủi hàn cong x 2
+Remote 4 nút 9V X 3
+
+
+In tem bảo hành
+MICA 2MM ĐEN
+//======================================== 
+
+//========================================
+Gieo niềm tin cuộc sống
+
+Mạch chống trồm xe dùng RFID-RC522
+Sử dụng ATMega8
+dùng nguồn 12V
+Với ngõ vào là:
+RFID -  đọc và ghi thẻ từ
+Một nút nhấn cách ly quang bằng PC817
+Ngõ ra là 1 Relay 5 chân. đưa ra NO,NC và Com
+một hoặc 2 led báo
+
+Nguyên lý như sau 
+Khi mới nạp chương trình xong
+bật nguồn mình đưa một thẻ từ vào. nó sẽ nhận đó là thẻ master.
+lúc này relay không được bật.
+khi tắt nguồn bật lại. nếu đưa thẻ master vào thì đèn LED báo. sau đó đưa một thẻ khác vào mạch sẽ nhận là thẻ use
+lúc này LED tắt và Relay được bật.
+ở những lần cấp nguồn tiếp theo chỉ cần đưa thẻ user vào thì relay được bật
+Nếu đưa thẻ master vào lần sau thì LED lại báo và cho phép nhận thẻ USer thứ 2
+mạch sẽ nhớ được 2 thẻ user
+
+nút nhất cách ly quang dùng để được gắn ở vị trí bí mật dùng để mở relay trong trường hợp người chủ mất thẻ
+yêu cầu nút nhấn phải được nhấn giữ trước khi bật nguồn. sau 1 phút thì mới bật relay nhưng chỉ bật một lần.
+nếu tắt nguồn bật lại thì phải làm lại như thế
+
+Lý do phải cách ly quang là để tránh chạm chập làm hỏng vi điều khiển.
+Lý do dùng Atmega 8 là giá thành không quá đắt mà hoạt động ổn định
+nếu thiết kế nguồn giảm áp thì tốt nhất dùng nguồn xung để giảm tiêu hao điện năng
+
+vì mỗi thẻ đều có một ID riêng nên tạm thời mình chỉ cần dùng ID của thẻ chưa cần ghi ngược dữ liệu vào thẻ. 
+dữ liệu ghi lại sẽ lưu vào EEProm của vi điều khiển.
+
+
+
+Một ngày nọ Đức Phật cùng với 
+A-nan vào thành khất thực
+
+Khất thực nghĩa là dùng bát nhận thức ăn và nhận những vật cần dùng trong ngày

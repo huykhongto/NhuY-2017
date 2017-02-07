@@ -1,0 +1,128 @@
+﻿program Nhu_Y_LDNam;
+
+//{$R *.dres}
+//{$R *.dres}
+//{$R *.RES}
+{}
+//{$I 1 Ma nguon/Nhu_Y_LDNam.inc}
+uses
+  Forms,
+  f_quan_ly_tai_chinh_f in '! Quan ly tai chinh\f_quan_ly_tai_chinh_f.pas' {f_quan_ly_tai_chinh},
+  LDNam_sys in '..\..\!  LDNam thu vien\LDNam_sys.pas',
+  f_quan_ly_khoan_dinh_ky_f in '! Quan ly tai chinh\f_quan_ly_khoan_dinh_ky_f.pas' {f_quan_ly_khoan_dinh_ky},
+  f_truc_thuoc_f in '! Quan ly tai chinh\f_truc_thuoc_f.pas' {f_truc_thuoc},
+  f_quan_ly_tai_khoan_ngan_hang_f.dcu in '! Quan ly tai chinh\f_quan_ly_tai_khoan_ngan_hang_f.dcu.pas' {f_quan_ly_tai_khoan_ngan_hang},
+  f_cong_ty_ldnam_f in '! Cong ty LDNam\f_cong_ty_ldnam_f.pas' {f_cong_ty_ldnam},
+  f_so_do_to_chuc_cong_ty_f in '! Cong ty LDNam\f_so_do_to_chuc_cong_ty_f.pas' {f_so_do_to_chuc_cong_ty},
+  f_quan_ly_ngoi_sao_f in '! Tiep thi\f_quan_ly_ngoi_sao_f.pas' {f_quan_ly_khach_hanh},
+  f_5_bien_so_loi_nhuan_f in '! Cong ty LDNam\f_5_bien_so_loi_nhuan_f.pas' {f_5_bien_so_loi_nhuan},
+  Chuyen_doi_ngon_ngu_lap_trinh in '! San xuat\! Lap trinh\Chuyen_doi_ngon_ngu_lap_trinh.pas' {f_Chuyen_doi_ngon_ngu_lap_trinh},
+  f_ldnam_f in '! LDNam\f_ldnam_f.pas' {f_ldnam},
+  f_ke_hoach_hom_nay_f in '! LDNam\f_ke_hoach_hom_nay_f.pas' {f_ke_hoach_hom_nay},
+  f_thong_diep_f in '! LDNam\f_thong_diep_f.pas' {f_thong_diep},
+  f_quan_ly_nguoi_f in '! Tiep thi\f_quan_ly_nguoi_f.pas' {f_quan_ly_nguoi},
+  f_dl_f in '! DL\f_dl_f.pas' {f_dl},
+  f_quan_ly_thau_kinh_f in '! San xuat\! Thau kinh\f_quan_ly_thau_kinh_f.pas' {f_quan_ly_thau_kinh},
+  f_du_mua_f in '! LDNam\f_du_mua_f.pas' {f_du_mua},
+  f_quan_ly_vat_tu_f in '! San xuat\! Nang luong\f_quan_ly_vat_tu_f.pas' {f_quan_ly_vat_tu_f},
+  f_tinh_toan_f in '! San xuat\! Thiet ke\f_tinh_toan_f.pas' {f_tinh_toan},
+  f_quan_ly_thien_su_f in '! Cong ty LDNam\! Thien su\f_quan_ly_thien_su_f.pas' {f_quan_ly_thien_su},
+  f_bang_cham_cong_f in '! Cong ty LDNam\! Thien su\! Cham cong\f_bang_cham_cong_f.pas' {f_bang_cham_cong},
+  f_cham_cong_f in '! Cong ty LDNam\! Thien su\! Cham cong\f_cham_cong_f.pas' {f_cham_cong},
+  f_ha_f in '! DL\f_ha_f.pas' {f_ha},
+  VisibleResourcesUnit in '! LDNam\1 Quan ly cuoc song\VisibleResourcesUnit.pas' {VisibleResources},
+  PrintProgressUnit in '! LDNam\1 Quan ly cuoc song\PrintProgressUnit.pas' {PrintProgress},
+  ShareUnit in '! LDNam\1 Quan ly cuoc song\ShareUnit.pas' {Share},
+  f_in_to_gui_buu_pham_f in '! In an\f_in_to_gui_buu_pham_f.pas' {f_in_to_gui_buu_pham},
+  f_in_hoa_don_ban_hang_f in '! In an\f_in_hoa_don_ban_hang_f.pas' {f_in_hoa_don_ban_hang},
+  f_f_f in '! DL\f_f_f.pas' {f_f},
+  in_hoa_don in '! In an\in_hoa_don.pas',
+  f_xem_truoc_in_f in '! In an\f_xem_truoc_in_f.pas' {f_xem_truoc_in},
+  xygraph3d in '! In an\xygraph3d.pas',
+  xycommon in '! In an\xycommon.pas',
+  f_tinh_dien_f in '3 Tinh toan\f_tinh_dien_f.pas' {f_tinh_dien},
+  f_quan_ly_don_hang_f in '! Tiep thi\f_quan_ly_don_hang_f.pas' {f_quan_ly_don_hang},
+  f_in_bao_gia_f in '! In an\f_in_bao_gia_f.pas' {f_in_bao_gia},
+  f_xem_truoc_bao_gia_f in '! In an\f_xem_truoc_bao_gia_f.pas' {f_xem_truoc_bao_gia},
+  f_chi_tiet_du_chi_f in '1 Ma nguon\1 Tai chinh\f_chi_tiet_du_chi_f.pas' {f_chi_tiet_du_chi},
+  f_quan_ly_tien_no_f in '1 Ma nguon\1 Tai chinh\f_quan_ly_tien_no_f.pas' {f_quan_ly_tien_no},
+  f_LDNam_sys_thoi_gian_f in '..\!  LDNam thu vien\f_LDNam_sys_thoi_gian_f.pas' {f_LDNam_sys_thoi_gian},
+  f_nhu_y_f in '1 Ma nguon\1 Nhu Y\f_nhu_y_f.pas' {f_nhu_y},
+  Vcl.Themes,
+  Vcl.Styles,
+  khai_bao_tu_dien in '1 Ma nguon\khai_bao_tu_dien.pas',
+  Quan_ly_cong_viec in '1 Ma nguon\Quan_ly_cong_viec.pas' {f_quan_ly_cong_viec},
+  xu_ly_du_lieu in '1 Ma nguon\xu_ly_du_lieu.pas',
+  f_tu_ghep_f in '1 Ma nguon\f_tu_ghep_f.pas' {f_tu_ghep},
+  f_thong_bao_f in '1 Ma nguon\f_thong_bao_f.pas' {f_thong_bao},
+  f_ghi_so_bang_chu_f in '1 Ma nguon\f_ghi_so_bang_chu_f.pas' {f_ghi_so_bang_chu},
+  LDNam_dl in '..\!  LDNam thu vien\LDNam_dl.pas';
+
+//{$R *.RES}
+
+begin
+	Application.Initialize;
+	//TStyleManager.TrySetStyle('Light');
+	Application.Title := 'Như Ý by LDNam';
+	Application.CreateForm(Tf_nhu_y, f_nhu_y);
+  Application.CreateForm(Tf_dl, f_dl);
+  Application.CreateForm(Tf_quan_ly_tai_chinh, f_quan_ly_tai_chinh);
+  Application.CreateForm(Tf_tinh_toan, f_tinh_toan);
+  Application.CreateForm(Tf_quan_ly_thien_su, f_quan_ly_thien_su);
+  Application.CreateForm(Tf_bang_cham_cong, f_bang_cham_cong);
+  Application.CreateForm(Tf_cham_cong, f_cham_cong);
+  Application.CreateForm(TVisibleResources, VisibleResources);
+  Application.CreateForm(TPrintProgress, PrintProgress);
+  Application.CreateForm(TShare, Share);
+  Application.CreateForm(Tf_in_to_gui_buu_pham, f_in_to_gui_buu_pham);
+  Application.CreateForm(Tf_in_hoa_don_ban_hang, f_in_hoa_don_ban_hang);
+  Application.CreateForm(Tf_f, f_f);
+  Application.CreateForm(Tf_xem_truoc_in, f_xem_truoc_in);
+  Application.CreateForm(Tf_tinh_dien, f_tinh_dien);
+  Application.CreateForm(Tf_quan_ly_don_hang, f_quan_ly_don_hang);
+  Application.CreateForm(Tf_in_bao_gia, f_in_bao_gia);
+  Application.CreateForm(Tf_xem_truoc_bao_gia, f_xem_truoc_bao_gia);
+  Application.CreateForm(Tf_chi_tiet_du_chi, f_chi_tiet_du_chi);
+  Application.CreateForm(Tf_quan_ly_tien_no, f_quan_ly_tien_no);
+  Application.CreateForm(Tf_LDNam_sys_thoi_gian, f_LDNam_sys_thoi_gian);
+  Application.CreateForm(Tf_LDNam_sys_thoi_gian, f_LDNam_sys_thoi_gian);
+  //Application.CreateForm(Tf_thong_ke, f_thong_ke);
+  Application.CreateForm(Tf_quan_ly_cong_viec, f_quan_ly_cong_viec);
+  Application.CreateForm(Tf_tu_ghep, f_tu_ghep);
+  Application.CreateForm(Tf_thong_bao, f_thong_bao);
+  Application.CreateForm(Tf_ghi_so_bang_chu, f_ghi_so_bang_chu);
+  //Application.CreateForm(Tf_nhu_y, f_nhu_y);
+  Application.CreateForm(Tf_ha, f_ha);
+  //Application.CreateForm(Tf_thong_ke, f_thong_ke);
+  Application.CreateForm(Tf_quan_ly_khoan_dinh_ky, f_quan_ly_khoan_dinh_ky);
+	Application.CreateForm(Tf_du_mua, f_du_mua);
+  //Application.CreateForm(Tf_thong_bao, f_thong_bao);
+	//Application.CreateForm(Tf_tu_dong, f_tu_dong);
+	Application.CreateForm(Tf_truc_thuoc, f_truc_thuoc);
+	Application.CreateForm(Tf_tu_ghep, f_tu_ghep);
+	Application.CreateForm(Tf_quan_ly_tai_khoan_ngan_hang, f_quan_ly_tai_khoan_ngan_hang);
+	Application.CreateForm(Tf_cong_ty_ldnam, f_cong_ty_ldnam);
+	Application.CreateForm(Tf_so_do_to_chuc_cong_ty, f_so_do_to_chuc_cong_ty);
+		
+	Application.CreateForm(Tf_quan_ly_khach_hanh, f_quan_ly_khach_hanh);
+	Application.CreateForm(Tf_5_bien_so_loi_nhuan, f_5_bien_so_loi_nhuan);
+	Application.CreateForm(Tf_Chuyen_doi_ngon_ngu_lap_trinh, f_Chuyen_doi_ngon_ngu_lap_trinh);
+	Application.CreateForm(Tf_ldnam, f_ldnam);
+	Application.CreateForm(Tf_tinh_toan, f_tinh_toan);
+	Application.CreateForm(Tf_quan_ly_nguoi, f_quan_ly_nguoi);
+	
+	Application.CreateForm(Tf_quan_ly_thau_kinh, f_quan_ly_thau_kinh);
+	Application.CreateForm(Tf_ghi_so_bang_chu, f_ghi_so_bang_chu);
+	//Application.CreateForm(Tf_thong_diep, f_thong_diep);
+	Application.CreateForm(Tf_ke_hoach_hom_nay, f_ke_hoach_hom_nay);
+	//Application.CreateForm(Tf_chinh_f, f_chinh_f);
+	
+	Application.CreateForm(Tf_chi_tiet_du_chi, f_chi_tiet_du_chi);
+	//Application.CreateForm(Tfbase, fbase);
+	//f_chi_tiet_du_chi.Release;
+	//f_thong_bao.Show;
+	//Application.CreateForm(TForm4, Form4);
+	Application.CreateForm(Tf_in_to_gui_buu_pham, f_in_to_gui_buu_pham);
+	Application.CreateForm(Tf_quan_ly_vat_tu, f_quan_ly_vat_tu);
+	Application.Run;
+end.
